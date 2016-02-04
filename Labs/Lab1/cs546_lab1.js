@@ -9,7 +9,11 @@
 var m = {};
 
 m.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amountSavingPerMonth, yearlyInterestRateOfInvestment) {
-    //TODO: validate inputs
+    if (isNaN(yearsUnitlRetirement) || yearsUnitlRetirement < 0
+            || isNaN(amountSavingPerMonth) || amountSavingPerMonth < 0
+            || isNaN(yearlyInterestRateOfInvestment || yearlyInterestRateOfInvestment < 0)) {
+        return -1;
+    }
 
     var runningTotal = 0;
     var i = 0;
@@ -20,7 +24,11 @@ m.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amountSavin
 };
 
 m.investedAmountAfterSomeYears = function (yearsInvesting, initialAmount, yearlyInterestRateOfInvestment) {
-    //TODO: validate inputs
+    if (isNaN(yearsInvesting) || yearsInvesting < 0
+            || isNaN(initialAmount) || initialAmount < 0
+            || isNaN(yearlyInterestRateOfInvestment || yearlyInterestRateOfInvestment < 0)) {
+        return -1;
+    }
 
     var runningTotal = initialAmount;
     var i = 0;
@@ -31,7 +39,11 @@ m.investedAmountAfterSomeYears = function (yearsInvesting, initialAmount, yearly
 };
 
 m.monthsToPayOffLoan = function (monthlyPaymentAmouynt, initialLoanAmount, yearlyInterestRateOfLoan) {
-    //TODO: validate inputs
+    if (isNaN(monthlyPaymentAmouynt) || monthlyPaymentAmouynt < 0
+            || isNaN(initialLoanAmount) || initialLoanAmount < 0
+            || isNaN(yearlyInterestRateOfLoan || yearlyInterestRateOfLoan < 0)) {
+        return -1;
+    }
 
     var leftToPay = initialLoanAmount;
     var months = 0;
