@@ -1,14 +1,15 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Lab 1 cs546_lab1.js
- * 02/04/2016
+ * 02/05/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
 
 // make this a module for easy testing
-var m = {};
+//var m = {};
 
-m.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amountSavingPerMonth, yearlyInterestRateOfInvestment) {
+//m.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amountSavingPerMonth, yearlyInterestRateOfInvestment) {
+function retirementAmountIfSavingPerMonth(yearsUnitlRetirement, amountSavingPerMonth, yearlyInterestRateOfInvestment) {
     if (isNaN(yearsUnitlRetirement) || yearsUnitlRetirement < 0
             || isNaN(amountSavingPerMonth) || amountSavingPerMonth < 0
             || isNaN(yearlyInterestRateOfInvestment || yearlyInterestRateOfInvestment < 0)) {
@@ -21,9 +22,10 @@ m.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amountSavin
         runningTotal = (runningTotal + amountSavingPerMonth) * (1 + (yearlyInterestRateOfInvestment / 12));
     }
     return runningTotal;
-};
+}//;
 
-m.investedAmountAfterSomeYears = function (yearsInvesting, initialAmount, yearlyInterestRateOfInvestment) {
+//m.investedAmountAfterSomeYears = function (yearsInvesting, initialAmount, yearlyInterestRateOfInvestment) {
+function investedAmountAfterSomeYears(yearsInvesting, initialAmount, yearlyInterestRateOfInvestment) {
     if (isNaN(yearsInvesting) || yearsInvesting < 0
             || isNaN(initialAmount) || initialAmount < 0
             || isNaN(yearlyInterestRateOfInvestment || yearlyInterestRateOfInvestment < 0)) {
@@ -36,9 +38,10 @@ m.investedAmountAfterSomeYears = function (yearsInvesting, initialAmount, yearly
         runningTotal *= (1 + yearlyInterestRateOfInvestment);
     }
     return runningTotal;
-};
+}//;
 
-m.monthsToPayOffLoan = function (monthlyPaymentAmouynt, initialLoanAmount, yearlyInterestRateOfLoan) {
+//m.monthsToPayOffLoan = function (monthlyPaymentAmouynt, initialLoanAmount, yearlyInterestRateOfLoan) {
+function monthsToPayOffLoan(monthlyPaymentAmouynt, initialLoanAmount, yearlyInterestRateOfLoan) {
     if (isNaN(monthlyPaymentAmouynt) || monthlyPaymentAmouynt < 0
             || isNaN(initialLoanAmount) || initialLoanAmount < 0
             || isNaN(yearlyInterestRateOfLoan || yearlyInterestRateOfLoan < 0)) {
@@ -51,8 +54,8 @@ m.monthsToPayOffLoan = function (monthlyPaymentAmouynt, initialLoanAmount, yearl
         leftToPay = (leftToPay * (1 + (yearlyInterestRateOfLoan / 12))) - monthlyPaymentAmouynt;
     }
     return months;
-};
+}//;
 
 // export the module
-module.exports = m;
+//module.exports = m;
 
