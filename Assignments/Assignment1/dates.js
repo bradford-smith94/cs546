@@ -43,8 +43,14 @@ m.daysSince = function (someDate) {
 
 //return the next date that is both a Friday and the 13th
 m.nextFridayTheThirteenth = function () {
-    var today = new Date();
-    var day = 24*60*60*1000; //hours*minutes*seconds*milliseconds
+    var date = new Date();
+    var friday = 5; //sunday is 0
+
+    do {
+        date = date.getDate() + 1;
+    } while (date.getDay() != friday && date.getDate() != 13);
+
+    return date;
 }
 
 module.exports = m;
