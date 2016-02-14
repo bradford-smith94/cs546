@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Assignment 1 test.js
- * 02/12/2016
+ * 02/13/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -38,8 +38,33 @@ function testStrings() {
         passed++;
     }
     total++;
-    if (test(2 == strModule.occurencesOfSubstring("foofoofoo", "foofoo"),
+    if (test(1 == strModule.occurencesOfSubstring("fooFoofoo", "Foofoo"),
+            "[Failed!]: case sensitive")) {
+        passed++;
+    }
+    total++;
+    try {
+        strModule.occurencesOfSubstringInsensitive(null, null);
+        console.log("[Failed!]: null inputs");
+    } catch (e) {
+        passed++;
+    }
+    total++;
+    if (test(2 == strModule.occurencesOfSubstringInsensitive("fooFoofoo", "Foofoo"),
                 "[Failed!]: 2 overlapping occurences")) {
+        passed++;
+    }
+    total++;
+    try {
+        strModule.randomizeSentences(null);
+        console.log("[Failed!]: randomize null");
+    } catch (e) {
+        passed++;
+    }
+    total++;
+    var p = "Hello, world! My name is Phil. This is a wonderful day because the snow did not delay me. The class was very sad that class was still, right? Of course they were.";
+    if (test(p !== strModule.randomizeSentences(p),
+                "[Failed!]: randomize sentences")) {
         passed++;
     }
     total++;
@@ -53,15 +78,62 @@ function testNumbers() {
     var total = 0;
     console.log("================================================================================");
     console.log("Testing Numbers module:");
+    try {
+        numberModule.triangleArea(-1, -5);
+        console.log("[Failed!]: negative inputs");
+    } catch (e) {
+        passed++;
+    }
+    total++;
     if (test(25 == numberModule.triangleArea(5, 10),
                 "[Failed!]: area of triangle")) {
         passed++;
     }
     total++;
     try {
-        numberModule.triangleArea(-1, -5);
-        console.log("[Failed!]: negative inputs");
+        numberModule.perimeterOfTriangle(1, 2, 7);
+        console.log("[Failed!]: invalid triangle");
     } catch (e) {
+        passed++;
+    }
+    total++;
+    if (test(12 == numberModule.perimeterOfTriangle(3, 4, 5),
+                "[Failed!]: perimeter of a triangle")) {
+        passed++;
+    }
+    total++;
+    if (test(0 == numberModule.areaOfSquare(0),
+                "[Failed!]: area of a square")) {
+        passed++;
+    }
+    total++;
+    if (test(4 == numberModule.perimeterOfSquare(1),
+                "[Failed!]: perimeter of a square")) {
+        passed++;
+    }
+    total++;
+    if (test(8 == numberModule.areaOfCube(2),
+                "[Failed!]: area (volume) of a cube")) {
+        passed++;
+    }
+    total++;
+    if (test(24 == numberModule.surfaceAreaOfCube(2),
+                "[Failed!]: surface area of a cube")) {
+        passed++;
+    }
+    total++;
+    if (test(60 == numberModule.perimeterOfCube(5),
+                "[Failed!]: perimeter of cube")) {
+        passed++;
+    }
+    total++;
+    if (test(Math.PI * 2 == numberModule.circumferenceOfCircle(1),
+                "[Failed!]: circumference of circle")) {
+        passed++;
+    }
+    total++;
+    if (test(Math.PI == numberModule.areaOfCircle(1),
+                "[Failed!]: area of circle")) {
         passed++;
     }
     total++;
@@ -91,6 +163,31 @@ function testObjects() {
     }
     total++;
 
+    var tempObj = {
+        hello: "world",
+        subObj: {
+            other: "thing"
+        }
+    };
+    var retObj;
+
+    if (test(tempObj !== (retObj = objectModule.shallowClone(tempObj)),
+                "[Failed!]: shallow clone")) {
+        if (retObj.subObj === tempObj.subObj)
+            passed++;
+        else
+            console.log("[Failed!]: shallow clone");
+    }
+    total++;
+    if (test(tempObj !== (retObj = objectModule.deepClone(tempObj)),
+                "[Failed!]: deep clone")) {
+        if (retObj.subObj !== tempObj.subObj)
+            passed++;
+        else
+            console.log("[Failed!]: deep clone");
+    }
+    total++;
+
     console.log("Object module passed: " + passed + " out of " + total + " tests.");
 }
 
@@ -107,15 +204,20 @@ function testArrays() {
         passed++;
     }
     total++;
+    if (test(["1", "2", "3", "4"].toString() === arrayModule.shallowClone(["1", "2", "3", "4"]).toString(),
+                "[Failed!]: shallowClone")) {
+        passed++;
+    }
+    total++;
+    if (test(["1", ["2", "3"], "4"].toString() === arrayModule.shallowClone(["1", ["2", "3"], "4"]).toString(),
+                "[Failed!]: shallow clone with sub arrays")) {
+        passed++;
+    }
+    total++;
     try {
         arrayModule.randomized(null);
         console.log("[Failed!]: randomized null");
     } catch (e) {
-        passed++;
-    }
-    total++;
-    if (test(["1", "2", "3", "4"].toString() === arrayModule.shallowClone(["1", "2", "3", "4"]).toString(),
-                "[Failed!]: shallowClone")) {
         passed++;
     }
     total++;
@@ -153,6 +255,11 @@ function testDates() {
         passed++;
     }
     total++;
+    if (test(322 == dateModule.daysLeftInYear(),
+                "[Failed!]: days left in the year\n\t*note* this test is date sensitive")) {
+        passed++;
+    }
+    total++;
     try {
         dateModule.daysSince(null);
         console.log("[Failed!]: days since null");
@@ -164,6 +271,20 @@ function testDates() {
         dateModule.daysSince(new Date(2266, 0, 1));
         console.log("[Failed!]: days since future");
     } catch (e) {
+        passed++;
+    }
+    total++;
+
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (test(1 == dateModule.daysSince(yesterday),
+                "[Failed!]: days since yesterday")) {
+        passed++;
+    }
+    total++;
+
+    if (test(new Date(2016, 4, 13).getTime() === dateModule.nextFridayTheThirteenth().getTime(),
+                "[Failed!]: next friday the thirteenth\n\t*note* this test is date sensitive")) {
         passed++;
     }
     total++;

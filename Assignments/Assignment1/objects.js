@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Assignment 1 objects.js
- * 02/11/2016
+ * 02/13/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -15,7 +15,7 @@ m.shallowClone = function (baseObject) {
     var retObj = {};
 
     for (var key in baseObject) {
-        retObj[key] = baseObject.key;
+        retObj[key] = baseObject[key];
     }
 
     return retObj;
@@ -30,10 +30,11 @@ m.deepClone = function (baseObject) {
     var retObj = {};
 
     for (var key in baseObject) {
-        if (typeof(key) === 'object')
-            retObj[key] = m.deepClone(key);
+        if (typeof(baseObject[key]) === 'object') {
+            retObj[key] = m.deepClone(baseObject[key]);
+        }
         else
-            retObj[key] = baseObject.key;
+            retObj[key] = baseObject[key];
     }
 
     return retObj;
