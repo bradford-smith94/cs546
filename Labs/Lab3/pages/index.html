@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+    Bradford Smith (bsmith8)
+    CS 546 Lab 3 index.html
+    02/20/2016
+    "I pledge my honor that I have abided by the Stevens Honor System."
+-->
 <html lang="en">
 
 <head>
@@ -23,12 +29,112 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Hello, world!</h1>
+                <h1>WebCalcTool.js</h1>
             </div>
         </div>
         <main>
-            <!-- Your main content will go here! -->
+            <h2>A Simple Financial Calculator</h2>
+            <p>This website provides API routes through a Javascript server that function as a simple financial calculator. These calculations can provide: retirement savings based on a monthly savings amount, the amount an investment is worth after some amount of years, and the months left to pay off a loan based on a monthly payment.</p>
+            <section>
+                <h3>/api/perMonthRetirementSavings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>years</td>
+                        <td>A number representing the number of years remaining until retirement</td>
+                        <td>years=40</td>
+                    </tr>
+                    <tr>
+                        <td>perMonth</td>
+                        <td>A number representing the amount of money that is being saved per month</td>
+                        <td>perMonth=280.00</td>
+                    </tr>
+                    <tr>
+                        <td>interestRate</td>
+                        <td>A decimal number representing the interest rate by which savings grows</td>
+                        <td>interestRate=0.03 (where 0.03 is 3%)</td>
+                    </tr>
+                </table>
+            </section>
+            <section>
+                <h3>/api/investedAmount</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>years</td>
+                        <td>A number representing the number of years that an investment has been saved for</td>
+                        <td>years=5</td>
+                    </tr>
+                    <tr>
+                        <td>initial</td>
+                        <td>A number representing the value of the initial invesment</td>
+                        <td>initial=1000.00</td>
+                    </tr>
+                    <tr>
+                        <td>interestRate</td>
+                        <td>A decimal number representing the interest rate by which the investment grows</td>
+                        <td>interestRate=0.08 (where 0.08 is 8%)</td>
+                    </tr>
+                </table>
+            </section>
+            <section>
+                <h3>/api/loanPayoff</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>monthlyAmount</td>
+                        <td>A number representing the monthly payment amount of a loan</td>
+                        <td>monthlyAmount=1500.00</td>
+                    </tr>
+                    <tr>
+                        <td>loanAmount</td>
+                        <td>A number represnting the initial amount of the loan</td>
+                        <td>loanAmount=62000.00</td>
+                    </tr>
+                    <tr>
+                        <td>interestRate</td>
+                        <td>A decimal number representing the interest rate by which the loan amount grows</td>
+                        <td>interestRate=0.09 (where 0.09 is 9%)</td>
+                    </tr>
+                </table>
+            </section>
         </main>
+        <section>
+            <h2>About Bradford Smith</h2>
+            <p>I am a runner, martial artist and programmer who is addicted to configuring my environment. I am currently a junior at Stevens Institute of Technology in pursuit of a Bachelor's Degree in Cybersecurity and a Master's Degree in Computer Science.</p>
+            <ul>
+                <li>Major: Cybersecurity</li>
+                <li>Favorite Song: "Somewhere in My Car" ~ Keith Urban</li>
+                <li>In CS 546 I hope to learn how to use Javascript for modern Web Development</li>
+                <li>Programming Languages I like to use are:
+                    <ul>
+                        <li>C</li>
+                        <li>C++</li>
+                        <li>Bash</li>
+                        <li>Vimscript</li>
+                    </ul>
+                </li>
+                <li>Favorite Animal: Monkey</li>
+            </ul>
+        </section>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
