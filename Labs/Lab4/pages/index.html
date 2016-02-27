@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
     Bradford Smith (bsmith8)
-    CS 546 Lab 3 index.html
-    02/20/2016
+    CS 546 Lab 4 index.html
+    02/27/2016
     "I pledge my honor that I have abided by the Stevens Honor System."
 -->
 <html lang="en">
@@ -61,6 +61,18 @@
                         <td>interestRate=0.03 (where 0.03 is 3%)</td>
                     </tr>
                 </table>
+                <form action="/results/perMonthRetirementSavings" method="post">
+                    <label>Number of years:
+                        <input type="number" name="years">
+                    </label><br>
+                    <label>Amount saved per month:
+                        <input type="number" name="perMonth">
+                    </label><br>
+                    <label>Interest rate:
+                        <input type="number" name="interestRate">
+                    </label><br>
+                    <input type="submit" value="Submit">
+                </form>
             </section>
             <section>
                 <h3>/api/investedAmount</h3>
@@ -88,6 +100,18 @@
                         <td>interestRate=0.08 (where 0.08 is 8%)</td>
                     </tr>
                 </table>
+                <form action="/results/investedAmount" method="post">
+                    <label>Number of years:
+                        <input type="number" name="years">
+                    </label><br>
+                    <label>Intial value of investment:
+                        <input type="number" name="initial">
+                    </label><br>
+                    <label>Interest rate:
+                        <input type="number" name="interestRate">
+                    </label><br>
+                    <input type="submit" value="Submit">
+                </form>
             </section>
             <section>
                 <h3>/api/loanPayoff</h3>
@@ -115,6 +139,18 @@
                         <td>interestRate=0.09 (where 0.09 is 9%)</td>
                     </tr>
                 </table>
+                <form action="/results/loanPayoff" method="post">
+                    <label>Monthly payment amount:
+                        <input type="number" name="monthlyAmount">
+                    </label><br>
+                    <label>Intial amount of the loan:
+                        <input type="number" name="loanAmount">
+                    </label><br>
+                    <label>Interest rate:
+                        <input type="number" name="interestRate">
+                    </label><br>
+                    <input type="submit" value="Submit">
+                </form>
             </section>
         </main>
         <section>

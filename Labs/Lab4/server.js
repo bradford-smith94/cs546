@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
- * CS 546 Lab 2 server.js
- * 02/14/2016
+ * CS 546 Lab 4 server.js
+ * 02/27/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -11,6 +11,9 @@ var myData = require('./data.js')
 
 // This package exports the function to create an express instance:
 var app = express();
+
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
 
 // This is called 'adding middleware', or things that will help parse your request
 app.use(bodyParser.json()); // for parsing application/json
@@ -41,6 +44,9 @@ app.get("/api/perMonthRetirementSavings", function (request, response) {
     }
 });
 
+app.post("/results/perMonthRetirementSavings", function (request, response) {
+});
+
 app.get("/api/investedAmount", function (request, response) {
     var years = request.query["years"];
     var initial = request.query["initial"];
@@ -53,7 +59,10 @@ app.get("/api/investedAmount", function (request, response) {
     }
 });
 
-app.get("/apli/loanPayoff", function (request, response) {
+app.post("/results/investedAmount", function (request, response) {
+});
+
+app.get("/api/loanPayoff", function (request, response) {
     var monthlyAmount = request.query["monthlyAmount"];
     var loanAmount = request.query["loanAmount"];
     var interestRate = request.query["interestRate"];
@@ -63,6 +72,9 @@ app.get("/apli/loanPayoff", function (request, response) {
     } catch (e) {
         response.status(500).json({status: "error", message: e.message});
     }
+});
+
+app.post("/results/loanPayoff", function (request, response) {
 });
 
 // We can now navigate to localhost:3000
