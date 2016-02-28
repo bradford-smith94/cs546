@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
- * CS 546 Lab 2 data.js
- * 02/14/2016
+ * CS 546 Lab 4 data.js
+ * 02/27/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -20,6 +20,10 @@ exports.retirementAmountIfSavingPerMonth = function (yearsUnitlRetirement, amoun
     for (; i < (yearsUnitlRetirement * 12); i++) {
         runningTotal = (runningTotal + amountSavingPerMonth) * (1 + (yearlyInterestRateOfInvestment / 12));
     }
+
+    if (isNaN(runningTotal))
+        throw "Result too small!";
+
     return runningTotal;
 };
 

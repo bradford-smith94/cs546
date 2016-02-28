@@ -45,6 +45,13 @@ app.get("/api/perMonthRetirementSavings", function (request, response) {
 });
 
 app.post("/results/perMonthRetirementSavings", function (request, response) {
+    try {
+        var answer = myData.retirementAmountIfSavingPerMonth(request.body.years, request.body.perMonth, request.body.interestRate);
+        response.render('success.ejs', {pageTitle: "Retirement Savings Results", operationTitle: "Retirement Savings", result: "$" + answer});
+    } catch (message) {
+        // we caught an exception! Let's show an error page!
+        response.status(500).render('error.ejs', { errorType: "Issue calculating retirement savings", errorMessage: message });
+    }
 });
 
 app.get("/api/investedAmount", function (request, response) {
@@ -60,6 +67,13 @@ app.get("/api/investedAmount", function (request, response) {
 });
 
 app.post("/results/investedAmount", function (request, response) {
+    try {
+        var answer = myData.investedAmountAfterSomeYears(request.body.years, request.body.initial, request.body.interestRate);
+        response.render('success.ejs', {pageTitle: "Invested Amount Results", operationTitle: "Invested Amount", result: "$" + answer});
+    } catch (message) {
+        // we caught an exception! Let's show an error page!
+        response.status(500).render('error.ejs', { errorType: "Issue calculating invested amount", errorMessage: message });
+    }
 });
 
 app.get("/api/loanPayoff", function (request, response) {
@@ -75,6 +89,13 @@ app.get("/api/loanPayoff", function (request, response) {
 });
 
 app.post("/results/loanPayoff", function (request, response) {
+    try {
+        var answer = myData.monthsToPayOffLoan(request.body.monthlyAmount, request.body.loanAmount, request.body.interestRate);
+        response.render('success.ejs', {pageTitle: "Loan Payoff Results", operationTitle: "Loan Payoff", result: answer + " months"});
+    } catch (message) {
+        // we caught an exception! Let's show an error page!
+        response.status(500).render('error.ejs', { errorType: "Issue calculating months to pay off loan", errorMessage: message });
+    }
 });
 
 // We can now navigate to localhost:3000
