@@ -61,7 +61,8 @@
                         <td>interestRate=0.03 (where 0.03 is 3%)</td>
                     </tr>
                 </table>
-                <form action="/results/perMonthRetirementSavings" method="post">
+                <form id="ret-form" action="/results/perMonthRetirementSavings" method="post">
+                    <p id="ret-error-message"></p>
                     <label for="ret1">Number of years:
                         <input id="ret1" type="number" name="years" step=1>
                     </label><br>
@@ -100,7 +101,8 @@
                         <td>interestRate=0.08 (where 0.08 is 8%)</td>
                     </tr>
                 </table>
-                <form action="/results/investedAmount" method="post">
+                <form id="inv-form" action="/results/investedAmount" method="post">
+                    <p id="inv-error-message"></p>
                     <label for="inv1">Number of years:
                         <input id="inv1" type="number" name="years" step=1>
                     </label><br>
@@ -139,7 +141,8 @@
                         <td>interestRate=0.09 (where 0.09 is 9%)</td>
                     </tr>
                 </table>
-                <form action="/results/loanPayoff" method="post">
+                <form id="loa-form" action="/results/loanPayoff" method="post">
+                    <p id="loa-error-message"></p>
                     <label for="loa1">Monthly payment amount:
                         <input id="loa1" type="number" name="monthlyAmount" step=0.01>
                     </label><br>
