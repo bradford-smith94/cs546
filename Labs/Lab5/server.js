@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
- * CS 546 Lab 4 server.js
- * 02/27/2016
+ * CS 546 Lab 5 server.js
+ * 03/05/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -29,7 +29,8 @@ app.use('/assets', express.static('static'));
 app.get("/", function (request, response) {
     // We have to pass a second parameter to specify the root directory
     // __dirname is a global variable representing the file directory you are currently in
-    response.sendFile("./pages/index.html", { root: __dirname });
+    //response.sendFile("./pages/index.html", { root: __dirname });
+    response.render('index.ejs');
 });
 
 app.get("/api/perMonthRetirementSavings", function (request, response) {

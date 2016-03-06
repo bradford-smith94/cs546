@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
     Bradford Smith (bsmith8)
-    CS 546 Lab 4 index.html
-    02/27/2016
+    CS 546 Lab 5 index.html
+    03/05/2016
     "I pledge my honor that I have abided by the Stevens Honor System."
 -->
 <html lang="en">
@@ -62,14 +62,14 @@
                     </tr>
                 </table>
                 <form action="/results/perMonthRetirementSavings" method="post">
-                    <label>Number of years:
-                        <input type="number" name="years" step=1>
+                    <label for="ret1">Number of years:
+                        <input id="ret1" type="number" name="years" step=1>
                     </label><br>
-                    <label>Amount saved per month:
-                        <input type="number" name="perMonth" step=0.01>
+                    <label for="ret2">Amount saved per month:
+                        <input id="ret2" type="number" name="perMonth" step=0.01>
                     </label><br>
-                    <label>Interest rate:
-                        <input type="number" name="interestRate" step=0.01>
+                    <label for="ret3">Interest rate:
+                        <input id="ret3" type="number" name="interestRate" step=0.01>
                     </label><br>
                     <input type="submit" value="Submit">
                 </form>
@@ -101,14 +101,14 @@
                     </tr>
                 </table>
                 <form action="/results/investedAmount" method="post">
-                    <label>Number of years:
-                        <input type="number" name="years" step=1>
+                    <label for="inv1">Number of years:
+                        <input id="inv1" type="number" name="years" step=1>
                     </label><br>
-                    <label>Intial value of investment:
-                        <input type="number" name="initial" step=0.01>
+                    <label for="inv2">Intial value of investment:
+                        <input id="inv2" type="number" name="initial" step=0.01>
                     </label><br>
-                    <label>Interest rate:
-                        <input type="number" name="interestRate" step=0.01>
+                    <label for="inv3">Interest rate:
+                        <input id="inv3" type="number" name="interestRate" step=0.01>
                     </label><br>
                     <input type="submit" value="Submit">
                 </form>
@@ -140,14 +140,14 @@
                     </tr>
                 </table>
                 <form action="/results/loanPayoff" method="post">
-                    <label>Monthly payment amount:
-                        <input type="number" name="monthlyAmount" step=0.01>
+                    <label for="loa1">Monthly payment amount:
+                        <input id="loa1" type="number" name="monthlyAmount" step=0.01>
                     </label><br>
-                    <label>Intial amount of the loan:
-                        <input type="number" name="loanAmount" step=0.01>
+                    <label for="loa2">Intial amount of the loan:
+                        <input id="loa2" type="number" name="loanAmount" step=0.01>
                     </label><br>
-                    <label>Interest rate:
-                        <input type="number" name="interestRate" step=0.01>
+                    <label for="loa3">Interest rate:
+                        <input id="loa3" type="number" name="interestRate" step=0.01>
                     </label><br>
                     <input type="submit" value="Submit">
                 </form>
@@ -173,16 +173,8 @@
         </section>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!-- jQuery fallback -->
-    <script>
-        if (!window.jQuery) { document.write('<script src="/assets/js/jquery.js"><\/script>'); }
-    </script>
-
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/assets/js/bootstrap.min.js"></script>
+    <!-- Include file with reverences to scripts -->
+    <%- include partials/scripts %>
 </body>
 
 </html>
