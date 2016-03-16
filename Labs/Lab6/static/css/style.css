@@ -1,4 +1,11 @@
-/* Styles I have provided: */
+/* Bradford Smith (bsmith8)
+ * CS 546 Lab 6 style.css
+ * 03/15/2016
+ * "I pledge my honor that I have abided by the Stevens Honor System."
+ */
+
+
+ /* Styles provided: */
 
 * {
     box-sizing: border-box;
@@ -36,4 +43,62 @@ main {
     width: 60%;
 }
 
-/* Styles you create */
+/* Styles created */
+
+/* add 50pt to right and left of anything with class 'content' */
+.content {
+    padding-left: 50pt;
+    padding-right: 50pt;
+}
+
+/* 'body' text color is set to #333 */
+body {
+    color: #333;
+    /* reduce 'body' text to 15pt */
+    font-size: 15pt;
+}
+
+/* all headings inside 'main' are centered */
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+    text-align: center;
+}
+
+/* add a top border to each 'section' that has a 'chapter' class */
+section.chapter {
+    border-top-style: solid;
+    /* add 20pt padding to top and bottom */
+    padding: 20pt 0pt;
+}
+
+/* 'scroll-to-top' element is fixed to 10% from bottom and right of screen */
+#scroll-to-top {
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+}
+
+/* links are always colored #44609D */
+a:link {
+    color: #44609D;
+}
+a:visited {
+    color: #44609D;
+}
+a:hover {
+    color: #44609D;
+}
+a:active {
+    color: #44609D;
+}
+
+/* remove padding and list-style from the navigation unordered list */
+nav ul {
+    padding: 0pt;
+    list-style: none;
+}
+
