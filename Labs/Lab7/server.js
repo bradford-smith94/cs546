@@ -33,14 +33,20 @@ app.post("/", function(request, response) {
         // response.render("pages/home", { error: null, comments: ALL THE COMMENTS });
 
         // On success, do:
+        // response.redirect("/");
+    commentData.createComment(comment).then(function(id) {
         response.redirect("/");
+    }, function(errorMessage) {
+        response.render("pages/home", { error: null, comments: "ALL THE COMMENTS" });
+    });
 });
 
 app.get("/", function(request, response) {
     // In this route, you will call the getAllComments function for your data module
     // and respond with the result of that promise as your comments section
-
-    response.render("pages/home", { error: null, comments: [] });
+    commentData.getAllComments().then(function(commentList) {
+        response.render("pages/home", { error: null, comments: commentList });
+    });
 });
 
 // We can now navigate to localhost:3000
