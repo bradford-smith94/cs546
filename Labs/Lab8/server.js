@@ -1,8 +1,15 @@
+/* Bradford Smith (bsmith8)
+ * CS 546 Lab 8 server.js
+ * 03/30/2016
+ * "I pledge my honor that I have abided by the Stevens Honor System."
+ */
+
 // We first require our express package
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var movieData = require('./data.js');
+var logger = require('./logger.js'); //logger module added for Lab 8
 
 // We create our express isntance:
 var app = express();
@@ -17,7 +24,7 @@ app.use(bodyParser.json()); // for parsing application/json
 // Request is the request object, just like how we have access to the request in our routes
 // Response is the response object, just like how we have access to the response in our routes
 // next is a callback that will call the next middleware registered, or proceed to routes if none exist.
-// If we do not call next(), we need to make sure we send a response of some sort or it will poll forever! 
+// If we do not call next(), we need to make sure we send a response of some sort or it will poll forever!
 var currentNumberOfRequests = 0;
 app.use(function(request, response, next) {
     currentNumberOfRequests++;
@@ -47,14 +54,14 @@ app.use(function(request, response, next) {
     } else {
         console.log("This user has never accessed the site before");
     }
-    
+
     // THIS SECTION WILL EXPIRE THE COOKIE EVERY 5th request
     if (currentNumberOfRequests % 5 === 0) {
         console.log("now clearing the cookie");
-        
+
         var anHourAgo = new Date();
         anHourAgo.setHours(anHourAgo.getHours() -1);
-        
+
         // invalidate, then clear so that lastAccessed no longer shows up on the
         // cookie object
         response.cookie("lastAccessed", "", { expires: expiresAt });
@@ -99,12 +106,12 @@ app.use(function(request, response, next) {
        console.log("This is an odd request; we should see if there's anything wrong with it.");
        response.pun = "That really bad odd pun";
    }
-   
+
    if (request.isEven) {
        console.log("This request is getting even with somebody -- I hope they're not too rough");
        response.pun = "Something about vengeance";
    }
-   
+
    next();
 });
 
@@ -112,7 +119,7 @@ app.use(function(request, response, next) {
 app.use(function(request, response, next) {
    console.log("We made a pun, it was bad");
    console.log(response.pun);
-   
+
    next();
 });
 
@@ -148,7 +155,7 @@ app.post("/api/movies", function(request, response) {
     });
 });
 
-// Update a movie 
+// Update a movie
 app.put("/api/movies/:id", function(request, response) {
     movieData.updateMovie(request.params.id, request.body.title, request.body.rating).then(function(movie) {
         response.json(movie);
