@@ -17,7 +17,7 @@ var app = express();
 app.use(cookieParser());
 app.use(bodyParser.json()); // for parsing application/json
 
-// Middlewares:
+// Middlewares: ================================================================
 
 // 1. One which will count the number of requests made to your website
 
@@ -123,6 +123,23 @@ app.use(function(request, response, next) {
    next();
 });
 
+// Middleware for Lab 8
+app.use("/api", function(request, response, next) {
+    console.log("Using logger module to log this request");
+
+    logger.createLog("/api" + request.path, request.method, request.cookies).then(function(log) {
+        // logging the logger, how meta
+        console.log("Log created successfully");
+    }, function(errorMessage) {
+        // logging the logger, how meta
+        console.log(errorMessage);
+    });
+
+    next();
+});
+
+// Routes: =====================================================================
+
 // Get the best movies
 app.get("/api/movies/best", function(request, response) {
     movieData.getPopularMovies().then(function(popularMovies) {
@@ -174,7 +191,29 @@ app.delete("/api/movies/:id", function(request, response) {
 
 app.get("/admin*", function(request, response) {
     response.status(200).send("Oh my! You're in the admin panel!");
-})
+});
+
+// route for Lab 8
+app.get("/cookies/addCookie", function(request, response) {
+    var key = request.query["key"];
+    var value = request.query["value"];
+
+    if (!key || key === "")
+        response.status(500).send("You must provide a key in the query string '?key=SOMEKEY&value=SOMEVALUE'");
+    else if (!value || value === "")
+        response.status(500).send("You must provide a value in the query string '?key=SOMEKEY&value=SOMEVALUE'");
+    else {
+
+        // replace any '.'s with '_' to keep mongo happy
+        key = key.replace(/\./g, '_');
+
+        var time = new Date();
+        time.setHours(time.getHours() + 1);
+
+        response.cookie(key, value, { expires: time });
+        response.status(200).send("This succeeded");
+    }
+});
 
 // We can now navigate to localhost:3000
 app.listen(3000, function() {

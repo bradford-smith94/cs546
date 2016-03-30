@@ -13,6 +13,7 @@ var exports = module.exports = {};
 
 MongoClient.connect(fullMongoUrl)
     .then(function(db) {
+        db.createCollection("logs");
         var logCollection = db.collection("logs");
 
         // return a promist that retrieves all log entries as an array
