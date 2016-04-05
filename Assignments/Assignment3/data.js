@@ -6,7 +6,8 @@
 
 var MongoClient = require('mongodb').MongoClient,
  settings = require('./config.js'),
- Guid = require('guid');
+ Guid = require('guid'),
+ bcrypt = require('bcrypt-nodejs');
 
 var fullMongoUrl = settings.mongoConfig.serverUrl + settings.mongoConfig.database;
 var exports = module.exports = {};
@@ -31,7 +32,9 @@ MongoClient.connect(fullMongoUrl)
     .then(function(db) {
         var myCollection = db.collection("users");
 
-        exports.createUser = function() {
+        exports.createUser = function(username, hash) {
+            //make sure to check for duplicate username, and existence of
+            //password
         };
 
         exports.editProfile = function() {
@@ -41,6 +44,14 @@ MongoClient.connect(fullMongoUrl)
         };
 
         exports.getUserByCredentials = function(username, password) {
+            user = ""; //get from Mongo
+            bcrypt.compare(password, user.encryptedPassword, function(err, res) {
+                if (res === true) {
+                    console.log("Successful login for user: " + username);
+                } else {
+                    console.log("Unsuccessful login attempt for user: " + username);
+                }
+            });
         };
 
     });

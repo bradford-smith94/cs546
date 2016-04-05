@@ -7,6 +7,7 @@
 // We first require our express package
 var express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var myData = require('./data.js');
 
 // This package exports the function to create an express instance:
@@ -15,7 +16,9 @@ var app = express();
 // We can setup Jade now!
 app.set('view engine', 'ejs');
 
-// This is called 'adding middleware', or things that will help parse your request
+// Middlewares: ================================================================
+
+app.use(cookieParser());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -24,12 +27,37 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 // it will check the 'static' folder for matching files
 app.use('/assets', express.static('static'));
 
-// Setup your routes here!
+// check if the user is logged in and update that in response.locals.user
+app.use(function(request, response, next) {
+    if (request.cookies.sessionId) {
+        console.log("User has sessionId cookie");
+        user = myData.getUserBySessionId(request.cookies.sessionId);
+        if (user) { //match means user is authenticated
+            response.locals.user = user;
+        } else{ //user is not authenticated, expire the cookie
+            response.locals.user = undefined;
+
+            var anHourAgo = new Date();
+            anHourAgo.setHours(anHourAgo.getHours() -1);
+
+            response.cookie("sessionId", "", { expires: anHourAgo });
+            response.clearCookie("sessionId");
+        }
+    } else {
+        console.log("User does not have sessionId cookie");
+        response.locals.user = undefined;
+    }
+
+    next();
+});
+
+// Routes: =====================================================================
 
 app.get("/profile", function (request, response) {
     //If the user is not logged in redirect to '/'
     //else show list of First Name, Last Name, Hobby and Pet Name as well as
     //rendering a form to change those
+    //TODO:
 });
 
 app.get("/", function (request, response) {
@@ -37,21 +65,37 @@ app.get("/", function (request, response) {
     // signup or login
 
     // We have to pass a second parameter to specify the root directory
-    // __dirname is a global variable representing the file directory you are currently in
+    // __dirname is a global variable representing the file directory you are
+    // currently in
+    //TODO?
     response.sendFile("./pages/index.html", { root: __dirname });
 });
 
 app.post("/login", function (request, response) {
     //route to post to in order to login
+    username = "";
+    password = "";
+    user = myData.getUserByCredentials(username, password);
+    //TODO:
 });
 
 app.post("/signup", function (request, response) {
     //route to post to in order to signup
+    //TODO:
 });
 
 app.post("/logout", function (request, response) {
     //Expire the user's auth cookie and wipe the 'currentSessionId' for the
     //currently logged in user then redirect to '/'
+    response.locals.user = undefined;
+
+    var anHourAgo = new Date();
+    anHourAgo.setHours(anHourAgo.getHours() -1);
+
+    response.cookie("sessionId", "", { expires: anHourAgo });
+    response.clearCookie("sessionId");
+
+    //TODO: wipe currentSessionId in db and redirect
 });
 
 // We can now navigate to localhost:3000
