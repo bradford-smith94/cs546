@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Assignment 3 server.js
- * 03/24/2016
+ * 04/05/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -26,14 +26,32 @@ app.use('/assets', express.static('static'));
 
 // Setup your routes here!
 
-app.get("/home", function (request, response) {
-    response.render("pages/home", { pageTitle: "Welcome Home" });
+app.get("/profile", function (request, response) {
+    //If the user is not logged in redirect to '/'
+    //else show list of First Name, Last Name, Hobby and Pet Name as well as
+    //rendering a form to change those
 });
 
 app.get("/", function (request, response) {
+    // If the user is logged in redirect to '/profile' else render forms to
+    // signup or login
+
     // We have to pass a second parameter to specify the root directory
     // __dirname is a global variable representing the file directory you are currently in
     response.sendFile("./pages/index.html", { root: __dirname });
+});
+
+app.post("/login", function (request, response) {
+    //route to post to in order to login
+});
+
+app.post("/signup", function (request, response) {
+    //route to post to in order to signup
+});
+
+app.post("/logout", function (request, response) {
+    //Expire the user's auth cookie and wipe the 'currentSessionId' for the
+    //currently logged in user then redirect to '/'
 });
 
 // We can now navigate to localhost:3000
