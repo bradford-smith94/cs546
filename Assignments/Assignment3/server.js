@@ -31,10 +31,10 @@ app.use('/assets', express.static('static'));
 app.use(function(request, response, next) {
     if (request.cookies.sessionId) {
         console.log("User has sessionId cookie");
-        user = myData.getUserBySessionId(request.cookies.sessionId);
-        if (user) { //match means user is authenticated
+        myData.getUserBySessionId(request.cookies.sessionId).then(function(user) {
             response.locals.user = user;
-        } else{ //user is not authenticated, expire the cookie
+        }, function(errorMessage) {
+            console.log("User sessionId cookie doesn't match user");
             response.locals.user = undefined;
 
             var anHourAgo = new Date();
@@ -42,7 +42,7 @@ app.use(function(request, response, next) {
 
             response.cookie("sessionId", "", { expires: anHourAgo });
             response.clearCookie("sessionId");
-        }
+        });
     } else {
         console.log("User does not have sessionId cookie");
         response.locals.user = undefined;
@@ -57,11 +57,11 @@ app.get("/profile", function (request, response) {
     //If the user is not logged in redirect to '/'
     //else show list of First Name, Last Name, Hobby and Pet Name as well as
     //rendering a form to change those
-    //TODO:
     if (!response.locals.user)
         response.redirect("/");
     u = response.locals.user
-    response.render('pages/profile.ejs', { pageTitle: u.username,
+    response.render('pages/profile.ejs', { headTitle: "Profile",
+                                            pageTitle: u.username,
                                             firstName: u.profile.firstName,
                                             lastName: u.profile.lastName,
                                             hobby: u.profile.hobby,
@@ -75,7 +75,7 @@ app.get("/", function (request, response) {
     if (response.locals.user) //if we have a user then they must be logged in
         response.redirect("/profile");
 
-    response.render('pages/home.ejs', { pageTitle: "Home" });
+    response.render('pages/home.ejs', { headTitle: "Home", pageTitle: "Home" });
 });
 
 //route to post to in order to login
@@ -87,7 +87,9 @@ app.post("/login", function (request, response) {
 
     //this handles error checking of username and password
     myData.getUserByCredentials(username, password).then(function(user) {
-        response.locals.user = user;
+        console.log(user);
+        console.log("Setting sessionId cookie to: " + user.currentSessionId);
+        response.cookie("sessionId", user.currentSessionId, { expires: anHour });
         response.redirect("/profile");
     }, function(errorMessage) {
         //TODO:
@@ -100,17 +102,40 @@ app.post("/login", function (request, response) {
 app.post("/signup", function (request, response) {
     username = request.body.username;
     password = request.body.password;
-    //TODO:
-});
-
-//route to post to in order to update user's profile
-app.post("/updateProfile", function (request, response) {
     firstName = request.body.firstName;
     lastName = request.body.lastName;
     hobby = request.body.hobby;
     petName = request.body.petName;
 
-    //TODO:
+    //create user handles error checking of inputs
+    myData.createUser(username, password, firstName, lastName, hobby, petName).then(function(user) {
+        var anHour = new Date();
+        anHour.setHours(anHour.getHours() + 1);
+        console.log("Setting sessionId cookie to: " + user.currentSessionId);
+        response.cookie("sessionId", user.currentSessionId, { expires: anHour });
+        response.redirect("/profile");
+    }, function(errorMessage) {
+        //TODO:
+        console.log(errorMessage);
+        response.redirect("/");
+    });
+
+});
+
+//route to post to in order to update user's profile
+app.post("/updateProfile", function (request, response) {
+    id = response.locals.user._id;
+    firstName = request.body.firstName;
+    lastName = request.body.lastName;
+    hobby = request.body.hobby;
+    petName = request.body.petName;
+
+    myData.editProfile(id, firstName, lastName, hobby, petName).then(function(res) {
+        response.redirect("/profile");
+    }, function(errorMessage) {
+        //TODO:
+        console.log(errorMessage);
+    });
 });
 
 //route to post to in order to logout current user

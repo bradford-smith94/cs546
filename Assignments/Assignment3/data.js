@@ -34,19 +34,42 @@ MongoClient.connect(fullMongoUrl)
         var userCollection = db.collection("users");
 
         //create a user and add them to the database
-        exports.createUser = function(username, hash) {
+        exports.createUser = function(username, password, firstName, lastName, hobby, petName) {
             //make sure to check for duplicate username, and existence of
             //password
             if (!username || username === "")
                 return Promise.reject("You must provide a username!");
-            if (!hash || hash === "")
+            if (!password || password === "")
                 return Promise.reject("You must provide a password!");
+            if (!firstName || firstName === "")
+                return Promise.reject("You must provide a first name!");
+            if (!lastName || lastName === "")
+                return Promise.reject("You must provide a last name!");
+            if (!hobby || hobby === "")
+                return Promise.reject("You must provide a hobby!");
+            if (!petName || petName === "")
+                return Promise.reject("You must provide a pet name!");
 
-            exports.checkUsernameIsTaken(username).then(function(res) {
+            //create the profile object
+            var p = {
+                firstName: firstName,
+                lastName: lastName,
+                hobby: hobby,
+                petName: petName
+            }
+
+            //hash the password and get rid of it
+            hash = bcrypt.hashSync(password);
+            password = undefined;
+
+            //make sure that username has not been taken before inserting a user
+            return exports.checkUsernameIsTaken(username).then(function(res) {
+                console.log("Requested username already exists");
                 return Promise.reject("A user with that username already exists!");
             }, function(errorMessage) {
-                return userCollection.insertOne({_id: Guid.create().toString(), username: username, encryptedPassword: hash, currentSessionId: Guid.create().toString(), profile: {} }).then(function(newUser) {
-                    return newUser;
+                console.log("Requested username available");
+                return userCollection.insertOne({_id: Guid.create().toString(), username: username, encryptedPassword: hash, currentSessionId: Guid.create().toString(), profile: p }).then(function(newUser) {
+                    return exports.getUserById(newUser.insertedId);
                 });
             });
 
