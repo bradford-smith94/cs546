@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Assignment 3 server.js
- * 04/05/2016
+ * 04/06/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -58,29 +58,53 @@ app.get("/profile", function (request, response) {
     //else show list of First Name, Last Name, Hobby and Pet Name as well as
     //rendering a form to change those
     //TODO:
+    if (!response.locals.user)
+        response.redirect("/");
+    response.render('pages/profile.ejs');
 });
 
 app.get("/", function (request, response) {
     // If the user is logged in redirect to '/profile' else render forms to
     // signup or login
 
-    // We have to pass a second parameter to specify the root directory
-    // __dirname is a global variable representing the file directory you are
-    // currently in
-    //TODO?
-    response.sendFile("./pages/index.html", { root: __dirname });
+    if (response.locals.user) //if we have a user then they must be logged in
+        response.redirect("/profile");
+
+    response.render('pages/home.ejs', { pageTitle: "Home" });
 });
 
 app.post("/login", function (request, response) {
     //route to post to in order to login
-    username = "";
-    password = "";
-    user = myData.getUserByCredentials(username, password);
-    //TODO:
+    username = request.body.username;
+    password = request.body.password;
+
+    if (!username || username === "")
+        //TODO:
+    if (!password || password === "")
+        //TODO:
+
+    myData.getUserByCredentials(username, password).then(function(user) {
+        response.locals.user = user;
+        response.redirect("/profile");
+    }, function(errorMessage) {
+        //TODO:
+    });
 });
 
 app.post("/signup", function (request, response) {
     //route to post to in order to signup
+    username = "";
+    password = "";
+    //TODO:
+});
+
+app.post("/updateProfile", function (request, response) {
+    //update user's profile
+    firstName = request.body.firstName;
+    lastName = request.body.lastName;
+    hobby = request.body.hobby;
+    petName = request.body.petName;
+
     //TODO:
 });
 
@@ -95,7 +119,9 @@ app.post("/logout", function (request, response) {
     response.cookie("sessionId", "", { expires: anHourAgo });
     response.clearCookie("sessionId");
 
-    //TODO: wipe currentSessionId in db and redirect
+    //TODO: wipe currentSessionId in db
+
+    response.redirect("/");
 });
 
 // We can now navigate to localhost:3000
