@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+    Bradford Smith (bsmith8)
+    CS 546 Assignment 3
+    04/06/2016
+    "I pledge my honor that I have abided by the Stevens Honor System."
+-->
 <html lang="en">
 
 <head>
@@ -11,7 +17,45 @@
         </header>
         <main>
             <h2><%= pageTitle %></h2>
-            <!-- Let's start writing content! -->        
+            <p>Welcome to the Home Page! Unfortunately there is not much to do here if you aren't logged in, so try out one of the forms below!</p>
+            <section>
+                <h3>Login</h3>
+                <form id="login-form" action="/login" method="post">
+                    <p id="login-error-msg"></p>
+                    <label for="login1">Username:
+                        <input id="login1" type="text" name="username">
+                    </label><br>
+                    <label for="login2">Password:
+                        <input id="login2" type="password" name="password">
+                    </label><br>
+                    <input type="submit" value="Login">
+                </form>
+            </section>
+            <section>
+                <h3>Sign-up</h3>
+                <form id="signup-form" action="/signup" method="post">
+                    <p id="signup-error-msg"></p>
+                    <label for="signup1">Username:
+                        <input id="signup1" type="text" name="username">
+                    </label><br>
+                    <label for="signup2">Password:
+                        <input id="signup2" type="password" name="password">
+                    </label><br>
+                    <label for="signup3">First Name:
+                        <input id="signup3" type="text" name="firstName">
+                    </label><br>
+                    <label for="signup4">Last Name:
+                        <input id="signup4" type="text" name="lastName">
+                    </label><br>
+                    <label for="signup5">Hobby:
+                        <input id="signup5" type="text" name="hobby">
+                    </label><br>
+                    <label for="signup6">Pet Name:
+                        <input id="signup6" type="text" name="petName">
+                    </label><br>
+                    <input type="submit" value="Sign-up">
+                </form>
+            </section>
         </main>
     </div>
 

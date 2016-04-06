@@ -60,7 +60,12 @@ app.get("/profile", function (request, response) {
     //TODO:
     if (!response.locals.user)
         response.redirect("/");
-    response.render('pages/profile.ejs');
+    u = response.locals.user
+    response.render('pages/profile.ejs', { pageTitle: u.username,
+                                            firstName: u.profile.firstName,
+                                            lastName: u.profile.lastName,
+                                            hobby: u.profile.hobby,
+                                            petName: u.profile.petName});
 });
 
 app.get("/", function (request, response) {
@@ -73,33 +78,33 @@ app.get("/", function (request, response) {
     response.render('pages/home.ejs', { pageTitle: "Home" });
 });
 
+//route to post to in order to login
 app.post("/login", function (request, response) {
-    //route to post to in order to login
     username = request.body.username;
     password = request.body.password;
 
-    if (!username || username === "")
-        //TODO:
-    if (!password || password === "")
-        //TODO:
+    console.log("Login attempt for: " + username);
 
+    //this handles error checking of username and password
     myData.getUserByCredentials(username, password).then(function(user) {
         response.locals.user = user;
         response.redirect("/profile");
     }, function(errorMessage) {
         //TODO:
+        console.log("Login error");
+        response.redirect("/");
     });
 });
 
+//route to post to in order to signup
 app.post("/signup", function (request, response) {
-    //route to post to in order to signup
-    username = "";
-    password = "";
+    username = request.body.username;
+    password = request.body.password;
     //TODO:
 });
 
+//route to post to in order to update user's profile
 app.post("/updateProfile", function (request, response) {
-    //update user's profile
     firstName = request.body.firstName;
     lastName = request.body.lastName;
     hobby = request.body.hobby;
@@ -108,18 +113,20 @@ app.post("/updateProfile", function (request, response) {
     //TODO:
 });
 
+//route to post to in order to logout current user
 app.post("/logout", function (request, response) {
     //Expire the user's auth cookie and wipe the 'currentSessionId' for the
     //currently logged in user then redirect to '/'
-    response.locals.user = undefined;
 
-    var anHourAgo = new Date();
-    anHourAgo.setHours(anHourAgo.getHours() -1);
+    if (response.locals.user) {
+        var anHourAgo = new Date();
+        anHourAgo.setHours(anHourAgo.getHours() -1);
 
-    response.cookie("sessionId", "", { expires: anHourAgo });
-    response.clearCookie("sessionId");
+        response.cookie("sessionId", "", { expires: anHourAgo });
+        response.clearCookie("sessionId");
 
-    //TODO: wipe currentSessionId in db
+        //TODO: wipe currentSessionId in db
+    }
 
     response.redirect("/");
 });

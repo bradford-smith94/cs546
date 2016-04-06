@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+    Bradford Smith (bsmith8)
+    CS 546 Assignment 3
+    04/06/2016
+    "I pledge my honor that I have abided by the Stevens Honor System."
+-->
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+        </header>
+        <main>
+            <section>
+                <h2><%= pageTitle %>'s Profile</h2>
+                <ul>
+                    <li>First Name: <%= firstName %></li>
+                    <li>Last Name: <%= lastName %></li>
+                    <li>Hobby: <%= hobby %></li>
+                    <li>Pet Name: <%= petName %></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Update Profile</h2>
+                <form id="update-form" action="/updateProfile" method="post">
+                    <p id="update-error-msg"></p>
+                    <label for="update1">First Name:
+                        <input id="update1" type="text" name="firstName">
+                    </label><br>
+                    <label for="update2">Last Name:
+                        <input id="update2" type="text" name="lastName">
+                    </label><br>
+                    <label for="update3">Hobby:
+                        <input id="update3" type="text" name="hobby">
+                    </label><br>
+                    <label for="update4">Pet Name:
+                        <input id="update4" type="text" name="petName">
+                    </label><br>
+                    <input type="submit" value="Update">
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <% include ../partials/scripts %>
+</body>
+
+</html>
