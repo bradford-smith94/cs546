@@ -96,7 +96,27 @@ MongoClient.connect(fullMongoUrl)
                 petName: petName
             }
 
-            return userCollection.updateOne({ _id: id }, { profile: p }).then(function() {
+            return userCollection.update({ _id: id }, { $set: { profile: p } }).then(function() {
+                return exports.getUserById(id);
+            });
+        };
+
+        //update the user with a new sessionId
+        exports.updateSessionId = function(id) {
+            if (!id || id === "")
+                return Promise.reject("You must provide an id!");
+
+            return userCollection.update({ _id: id }, { $set: { currentSessionId: Guid.create().toString() } }).then(function() {
+                return exports.getUserById(id);
+            });
+        };
+
+        //update the user with an undefined sessionId
+        exports.clearSessionId = function(id) {
+            if (!id || id === "")
+                return Promise.reject("You must provide an id!");
+
+            return userCollection.update({ _id: id }, { $set: { currentSessionId: undefined } }).then(function() {
                 return exports.getUserById(id);
             });
         };
@@ -143,16 +163,21 @@ MongoClient.connect(fullMongoUrl)
         //try to get a user by username and password only if the password
         //matches
         exports.getUserByCredentials = function(username, password) {
+            if (!username || username === "")
+                return Promise.reject("You must provide a username!");
+            if (!password || password === "")
+                return Promise.reject("You must provide a password!");
+
             return userCollection.find({ username: username }).limit(1).toArray().then(function(listOfUsers) {
                 if (listOfUsers.length === 0)
-                    throw "Unsuccessful login attempt for user: " + username;
+                    throw "Username and password do not match!";
 
                 bcrypt.compare(password, listOfUsers[0].encryptedPassword, function(err, res) {
                     if (res === true) {
                         console.log("Successful login for user: " + username);
                         return listOfUsers[0];
                     } else {
-                        throw "Unsuccessful login attempt for user: " + username;
+                        throw "Username and password do not match!";
                     }
                 });
             });

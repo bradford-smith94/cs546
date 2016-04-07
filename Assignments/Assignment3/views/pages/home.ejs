@@ -21,7 +21,7 @@
             <section>
                 <h3>Login</h3>
                 <form id="login-form" action="/login" method="post">
-                    <p id="login-error-msg"></p>
+                    <p id="login-error-msg"><%= loginError ? loginError : '' %></p>
                     <label for="login1">Username:
                         <input id="login1" type="text" name="username">
                     </label><br>
@@ -34,7 +34,7 @@
             <section>
                 <h3>Sign-up</h3>
                 <form id="signup-form" action="/signup" method="post">
-                    <p id="signup-error-msg"></p>
+                    <p id="signup-error-msg"><%= signupError ? signupError : '' %></p>
                     <label for="signup1">Username:
                         <input id="signup1" type="text" name="username">
                     </label><br>

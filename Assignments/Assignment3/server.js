@@ -32,7 +32,10 @@ app.use(function(request, response, next) {
     if (request.cookies.sessionId) {
         console.log("User has sessionId cookie");
         myData.getUserBySessionId(request.cookies.sessionId).then(function(user) {
+            console.log(user);
             response.locals.user = user;
+
+            next();
         }, function(errorMessage) {
             console.log("User sessionId cookie doesn't match user");
             response.locals.user = undefined;
@@ -42,13 +45,15 @@ app.use(function(request, response, next) {
 
             response.cookie("sessionId", "", { expires: anHourAgo });
             response.clearCookie("sessionId");
+
+            next();
         });
     } else {
         console.log("User does not have sessionId cookie");
         response.locals.user = undefined;
+        next();
     }
 
-    next();
 });
 
 // Routes: =====================================================================
@@ -57,25 +62,34 @@ app.get("/profile", function (request, response) {
     //If the user is not logged in redirect to '/'
     //else show list of First Name, Last Name, Hobby and Pet Name as well as
     //rendering a form to change those
-    if (!response.locals.user)
+    if (response.locals.user === undefined) {
         response.redirect("/");
-    u = response.locals.user
-    response.render('pages/profile.ejs', { headTitle: "Profile",
-                                            pageTitle: u.username,
-                                            firstName: u.profile.firstName,
-                                            lastName: u.profile.lastName,
-                                            hobby: u.profile.hobby,
-                                            petName: u.profile.petName});
+    } else {
+        u = response.locals.user
+        response.render('pages/profile.ejs', { headTitle: "Profile",
+                                                pageTitle: u.username,
+                                                firstName: u.profile.firstName,
+                                                lastName: u.profile.lastName,
+                                                hobby: u.profile.hobby,
+                                                petName: u.profile.petName});
+    }
 });
 
 app.get("/", function (request, response) {
     // If the user is logged in redirect to '/profile' else render forms to
     // signup or login
 
-    if (response.locals.user) //if we have a user then they must be logged in
+    console.log(response.locals.user);
+    if (response.locals.user !== undefined) //if we have a user then they must be logged in
         response.redirect("/profile");
 
-    response.render('pages/home.ejs', { headTitle: "Home", pageTitle: "Home" });
+    if (request.session.loginError)
+        console.log("Home gets loginError");
+
+    response.render('pages/home.ejs', { headTitle: "Home",
+                                        pageTitle: "Home",
+                                        loginError: undefined,
+                                        signupError: undefined });
 });
 
 //route to post to in order to login
@@ -92,8 +106,8 @@ app.post("/login", function (request, response) {
         response.cookie("sessionId", user.currentSessionId, { expires: anHour });
         response.redirect("/profile");
     }, function(errorMessage) {
-        //TODO:
-        console.log("Login error");
+        console.log(errorMessage);
+        request.session.loginError = errorMessage;
         response.redirect("/");
     });
 });
@@ -115,8 +129,8 @@ app.post("/signup", function (request, response) {
         response.cookie("sessionId", user.currentSessionId, { expires: anHour });
         response.redirect("/profile");
     }, function(errorMessage) {
-        //TODO:
         console.log(errorMessage);
+        response.locals.signupError = errorMessage;
         response.redirect("/");
     });
 
@@ -133,8 +147,9 @@ app.post("/updateProfile", function (request, response) {
     myData.editProfile(id, firstName, lastName, hobby, petName).then(function(res) {
         response.redirect("/profile");
     }, function(errorMessage) {
-        //TODO:
         console.log(errorMessage);
+        response.locals.errorMessage = errorMessage;
+        response.redirect("/profile");
     });
 });
 
@@ -150,10 +165,16 @@ app.post("/logout", function (request, response) {
         response.cookie("sessionId", "", { expires: anHourAgo });
         response.clearCookie("sessionId");
 
-        //TODO: wipe currentSessionId in db
+        myData.clearSessionId(response.locals.user._id).then(function(user) {
+            response.redirect("/");
+        }, function (errorMessage) {
+            console.log(errorMessage);
+            response.locals.errorMessage = errorMessage;
+            response.redirect("/");
+        });
+    } else {
+        response.redirect("/");
     }
-
-    response.redirect("/");
 });
 
 // We can now navigate to localhost:3000
