@@ -67,11 +67,12 @@ app.get("/profile", function (request, response) {
     } else {
         u = response.locals.user
         response.render('pages/profile.ejs', { headTitle: "Profile",
-                                                pageTitle: u.username,
+                                                pageTitle: u.profile.firstName,
                                                 firstName: u.profile.firstName,
                                                 lastName: u.profile.lastName,
                                                 hobby: u.profile.hobby,
-                                                petName: u.profile.petName});
+                                                petName: u.profile.petName,
+                                                updateError: undefined });
     }
 });
 
@@ -82,9 +83,6 @@ app.get("/", function (request, response) {
     console.log(response.locals.user);
     if (response.locals.user !== undefined) //if we have a user then they must be logged in
         response.redirect("/profile");
-
-    if (request.session.loginError)
-        console.log("Home gets loginError");
 
     response.render('pages/home.ejs', { headTitle: "Home",
                                         pageTitle: "Home",
@@ -101,14 +99,27 @@ app.post("/login", function (request, response) {
 
     //this handles error checking of username and password
     myData.getUserByCredentials(username, password).then(function(user) {
-        console.log(user);
-        console.log("Setting sessionId cookie to: " + user.currentSessionId);
-        response.cookie("sessionId", user.currentSessionId, { expires: anHour });
-        response.redirect("/profile");
+        console.log("User: " + user);
+        myData.updateSessionId(user._id).then(function(user) {
+            var anHour = new Date();
+            anHour.setHours(anHour.getHours() + 1);
+
+            console.log("Setting sessionId cookie to: " + user.currentSessionId);
+            response.cookie("sessionId", user.currentSessionId, { expires: anHour });
+            response.redirect("/profile");
+        }, function(errorMessage) {
+            console.log(errorMessage);
+            response.render('pages/home.ejs', { headTitle: "Home",
+                                                pageTitle: "Home",
+                                                loginError: errorMessage,
+                                                signupError: undefined });
+        });
     }, function(errorMessage) {
         console.log(errorMessage);
-        request.session.loginError = errorMessage;
-        response.redirect("/");
+        response.render('pages/home.ejs', { headTitle: "Home",
+                                            pageTitle: "Home",
+                                            loginError: errorMessage,
+                                            signupError: undefined });
     });
 });
 
@@ -130,15 +141,18 @@ app.post("/signup", function (request, response) {
         response.redirect("/profile");
     }, function(errorMessage) {
         console.log(errorMessage);
-        response.locals.signupError = errorMessage;
-        response.redirect("/");
+        response.render('pages/home.ejs', { headTitle: "Home",
+                                            pageTitle: "Home",
+                                            loginError: undefined,
+                                            signupError: errorMessage });
     });
 
 });
 
 //route to post to in order to update user's profile
 app.post("/updateProfile", function (request, response) {
-    id = response.locals.user._id;
+    u = response.locals.user;
+    id = u._id;
     firstName = request.body.firstName;
     lastName = request.body.lastName;
     hobby = request.body.hobby;
@@ -148,8 +162,13 @@ app.post("/updateProfile", function (request, response) {
         response.redirect("/profile");
     }, function(errorMessage) {
         console.log(errorMessage);
-        response.locals.errorMessage = errorMessage;
-        response.redirect("/profile");
+        response.render('pages/profile.ejs', { headTitle: "Profile",
+                                                pageTitle: u.profile.firstName,
+                                                firstName: u.profile.firstName,
+                                                lastName: u.profile.lastName,
+                                                hobby: u.profile.hobby,
+                                                petName: u.profile.petName,
+                                                updateError: errorMessage });
     });
 });
 
@@ -158,7 +177,7 @@ app.post("/logout", function (request, response) {
     //Expire the user's auth cookie and wipe the 'currentSessionId' for the
     //currently logged in user then redirect to '/'
 
-    if (response.locals.user) {
+    if (response.locals.user !== undefined) {
         var anHourAgo = new Date();
         anHourAgo.setHours(anHourAgo.getHours() -1);
 

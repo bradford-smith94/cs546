@@ -170,16 +170,14 @@ MongoClient.connect(fullMongoUrl)
 
             return userCollection.find({ username: username }).limit(1).toArray().then(function(listOfUsers) {
                 if (listOfUsers.length === 0)
-                    throw "Username and password do not match!";
+                    throw "Incorrect login information!";
 
-                bcrypt.compare(password, listOfUsers[0].encryptedPassword, function(err, res) {
-                    if (res === true) {
-                        console.log("Successful login for user: " + username);
-                        return listOfUsers[0];
-                    } else {
-                        throw "Username and password do not match!";
-                    }
-                });
+                if (bcrypt.compareSync(password, listOfUsers[0].encryptedPassword)) {
+                    console.log("Successful login for user: " + username);
+                    return listOfUsers[0];
+                } else {
+                    throw "Incorrect login information!";
+                }
             });
         };
 
