@@ -1,5 +1,10 @@
-/* Styles I have provided: */
+/* Bradford Smith (bsmith8)
+ * CS 546 Lab 9 style.css
+ * 04/14/2016
+ * "I pledge my honor that I have abided by the Stevens Honor System."
+ */
 
+/* Given styles: ============================================================ */
 * {
     box-sizing: border-box;
 }
@@ -34,35 +39,53 @@ h6 {
 
 .content {
     margin: auto;
-	padding: 0 25pt;
+    padding: 0 25pt;
 }
 
-body { 
-	color: #333;
+body {
+    color: #333;
 }
 
 main h1, main h2, main h3, main h4, main h5, main h6 {
-	text-align: center;
+    text-align: center;
 }
 
 section.chapter {
-	border-top: 1px solid #999;
-	padding: 20pt 0;
+    border-top: 1px solid #999;
+    padding: 20pt 0;
     background: #FFF;
 }
 
-a { 
-	color: #44609D;
+a {
+    color: #44609D;
 }
 
- nav ul {
- 	padding: 0;
- 	list-style: none;
- }
+nav ul {
+    padding: 0;
+    list-style: none;
+}
 
- nav li { 
+nav li {
     width: 300px;
- }
- 
- /* Solution */
- 
+}
+
+/* Added for Lab 9: ========================================================= */
+
+*::selection {
+    color: #FFF;
+    background: #44609d;
+}
+
+*::-moz-selection {
+    color: #FFF;
+    background: #44609d;
+}
+
+section.chapter p:first-of-type::first-letter {
+    font-size: 2rem;
+    font-family: cursive;
+}
+
+section.chapter p:first-of-type::first-line {
+    font-size: 1.75rem;
+}
