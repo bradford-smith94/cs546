@@ -71,21 +71,64 @@ nav li {
 
 /* Added for Lab 9: ========================================================= */
 
+/* Default state: 1 */
 *::selection {
     color: #FFF;
     background: #44609d;
 }
 
+/* Default state: 1 */
 *::-moz-selection {
     color: #FFF;
     background: #44609d;
 }
 
+/* Default state: 2 */
 section.chapter p:first-of-type::first-letter {
     font-size: 2rem;
     font-family: cursive;
 }
 
+/* Default state: 3 */
 section.chapter p:first-of-type::first-line {
     font-size: 1.75rem;
+}
+
+@media (min-width: 750px) {
+    /* 750px and wider: 1 */
+    nav li:hover {
+        transform: scale(1.5);
+    }
+
+    /* 750px and wider: 2 */
+    nav li {
+        transition: transform .5s linear;
+    }
+
+    /* 750px and wider: 3 */
+    html {
+        font-size: 18pt;
+    }
+
+    /* 750px and wider: 4 first-letter and first-line rules used rem as units */
+
+    /* 750px and wider: 5 */
+    .content {
+        max-width: 850px;
+        padding: 0;
+    }
+
+    /* 750px and wider: 6, 7 */
+    section.chapter {
+        opacity: .75;
+        transition: opacity .5s linear;
+    }
+
+    /* 750px and wider: 8 */
+    section.chapter:hover {
+        opacity: 1.0;
+    }
+    section.chapter:focus {
+        opacity: 1.0;
+    }
 }
