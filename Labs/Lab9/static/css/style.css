@@ -131,4 +131,7 @@ section.chapter p:first-of-type::first-line {
     section.chapter:focus {
         opacity: 1.0;
     }
+    section.chapter.active {
+        opacity: 1.0;
+    }
 }
