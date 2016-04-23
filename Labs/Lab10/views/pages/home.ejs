@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <!-- tabs -->
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" id="mytabs">
                 <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
                 <li role="presentation" class="dropdown">
                     <a id="characters-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -67,10 +67,15 @@
                     <div class="alert alert-danger alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
                         <h2>Spoiler Alert!</h2>
-                        <p>This page contains spoilers!</p>
+                        <p>This page contains spoilers! If you would like to discover the story on your own you may want to turn back now.</p>
                         <p>
-                            <button id="spoiler-leave-btn" type="button" class="btn btn-danger">Leave Now</button>
-                            <button id="spoiler-dismiss-btn" type="button" class="btn">Dismiss</button>
+                            <button id="spoiler-leave-btn" type="button" class="btn btn-danger" onclick="avoidSpoilers()">Leave Now</a>
+                            <script>
+function avoidSpoilers() {
+    $('#mytabs a[href="#about"]').tab('show')
+}
+                            </script>
+                            <button id="spoiler-dismiss-btn" type="button" class="btn" data-dismiss="alert">Dismiss</button>
                         </p>
                     </div>
                     <h2>Plot of Game</h2>
@@ -78,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div> <!-- end "container" -->
+    </div> <!-- container -->
 
     <% include ../partials/scripts %>
 </body>
