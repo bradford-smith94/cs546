@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+    Bradford Smith (bsmith8)
+    CS 546 Lab 10 home.ejs
+    04/23/2016
+    "I pledge my honor that I have abided by the Stevens Honor System."
+-->
 <html lang="en">
 
 <head>
@@ -8,10 +14,44 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1>Fun with Bootstrap</h1>
-            <p>Finally, after 9 labs of work, you can have some fun.</p>
+            <h1>GameWiki</h1>
+            <p>The wikia ripoff site for Game.</p>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-3 show-border">LOGO</div>
+            <div class="col-xs-12 col-sm-6 col-md-3 show-border">NAV</div>
+            <div class="col-xs-12 col-sm-6 col-md-3 show-border">SEARCH</div>
+        </div>
+        <div class="row">
+            <!-- tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+                <li role="presentation"><a href="#characters" aria-controls="characters" role="tab" data-toggle="tab">Characters</a></li>
+                <li role="presentation"><a href="#plot" aria-controls="plot" role="tab" data-toggle="tab">Plot</a></li>
+            </ul>
+
+            <!-- tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="about">
+                    <h2>Overview of Game</h2>
+                    <p>This is a basic description of Game.</p>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="characters">
+                    <h2>List of characters in Game</h2>
+                    <ul>
+                        <li>Main character</li>
+                        <li>Supporting Character 1</li>
+                        <li>Supporting Character 2</li>
+                        <li>Supporting Character 3</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="plot">
+                    <h2>Plot of Game</h2>
+                    <p>In here be spoilers!</p>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end "container" -->
 
     <% include ../partials/scripts %>
 </body>
