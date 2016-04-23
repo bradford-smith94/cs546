@@ -26,7 +26,18 @@
             <!-- tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
-                <li role="presentation"><a href="#characters" aria-controls="characters" role="tab" data-toggle="tab">Characters</a></li>
+                <li role="presentation" class="dropdown">
+                    <a id="characters-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Characters
+                        <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu" aria-labelledby="characters-label">
+                            <li><a href="#main" data-toggle="tab">Main Character</a></li>
+                            <li><a href="#one" data-toggle="tab">Supporting Character 1</a></li>
+                            <li><a href="#two" data-toggle="tab">Supporting Character 2</a></li>
+                            <li><a href="#three" data-toggle="tab">Supporting Character 3</a></li>
+                        </ul>
+                </li>
                 <li role="presentation"><a href="#plot" aria-controls="plot" role="tab" data-toggle="tab">Plot</a></li>
             </ul>
 
@@ -36,16 +47,32 @@
                     <h2>Overview of Game</h2>
                     <p>This is a basic description of Game.</p>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="characters">
-                    <h2>List of characters in Game</h2>
-                    <ul>
-                        <li>Main character</li>
-                        <li>Supporting Character 1</li>
-                        <li>Supporting Character 2</li>
-                        <li>Supporting Character 3</li>
-                    </ul>
+                <div role="tabpanel" class="tab-pane" id="main">
+                    <h2>Main Character</h2>
+                    <p>A detailed description of the main character</p>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="one">
+                    <h2>Supporting Character 1</h2>
+                    <p>A detailed descrption of supporting chracacter 1</p>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="two">
+                    <h2>Supporting Character 2</h2>
+                    <p>A detailed descrption of supporting chracacter 2</p>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="three">
+                    <h2>Supporting Character 3</h2>
+                    <p>A detailed descrption of supporting chracacter 3</p>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="plot">
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                        <h2>Spoiler Alert!</h2>
+                        <p>This page contains spoilers!</p>
+                        <p>
+                            <button id="spoiler-leave-btn" type="button" class="btn btn-danger">Leave Now</button>
+                            <button id="spoiler-dismiss-btn" type="button" class="btn">Dismiss</button>
+                        </p>
+                    </div>
                     <h2>Plot of Game</h2>
                     <p>In here be spoilers!</p>
                 </div>
