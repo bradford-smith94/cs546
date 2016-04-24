@@ -2,7 +2,7 @@
 <!--
     Bradford Smith (bsmith8)
     CS 546 Lab 10 home.ejs
-    04/23/2016
+    04/24/2016
     "I pledge my honor that I have abided by the Stevens Honor System."
 -->
 <html lang="en">
@@ -21,7 +21,7 @@
                 <div class="col-xs-12 col-sm-2 show-border">
                     <img src="http://vignette1.wikia.nocookie.net/wowwiki/images/1/17/Wikia_Logo.svg/revision/latest?cb=20120430230929" class="img-responsive" alt="GameWiki Logo"/>
                     <div class="panel panel-info">
-                        <div class="panel-body"><p>Minor site info.</p></div>
+                        <div class="panel-body"><p>This site likes to pretend that it is powered by wikia.</p></div>
                     </div>
                 </div> <!-- left column -->
                 <div class="col-xs-12 col-sm-10 show-border">
@@ -49,7 +49,7 @@
                             <div role="tabpanel" class="tab-pane active" id="about">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading"><h2>Overview of Game</h2></div>
-                                <div class="panel-body"><p>This is a basic description of Game.</p></div>
+                                    <div class="panel-body"><p>This is a basic description of Game.</p></div>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="main">
@@ -99,11 +99,58 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h2>Survey</h2></div>
                     <div class="panel-body">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" action="#" id="survey-form" onsubmit="formSubmit()">
+                            <div class="form-group">
+                                <label for="form-radio-group" class="col-xs-2 control-label">Rating:</label>
+                                <div class="col-xs-10" id="form-radio-group">
+                                    <div class="radio">
+                                        <label for="survey-rating-0">
+                                            <input type="radio" name="radio-group" id="survey-rating-0">
+                                            0
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="survey-rating-1">
+                                            <input type="radio" name="radio-group" id="survey-rating-1">
+                                            1
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="survey-rating-2">
+                                            <input type="radio" name="radio-group" id="survey-rating-2">
+                                            2
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="survey-rating-3">
+                                            <input type="radio" name="radio-group" id="survey-rating-3">
+                                            3
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="survey-rating-4">
+                                            <input type="radio" name="radio-group" id="survey-rating-4">
+                                            4
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="survey-rating-5">
+                                            <input type="radio" name="radio-group" id="survey-rating-5">
+                                            5
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="survey-name" class="col-xs-2 control-label">Name:</label>
+                                <div class="col-xs-10">
+                                    <input type="text" class="form-control" id="survey-name" placeholder="Your Name Here">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="survey-email" class="col-xs-2 control-label">Email:</label>
                                 <div class="col-xs-10">
-                                    <input type="email" class="form-control" id="survey-email" placeholder="you@somewhere.com">
+                                    <input type="email" class="form-control" id="survey-email" placeholder="your@email.com">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -114,11 +161,37 @@
                         </form>
                     </div>
                 </div>
+                <div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                                <h3 class="modal-title">Thank you for submitting our survey!</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>It really helps us to show the content that you want to see.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- modal -->
             </div> <!-- row -->
         </div> <!-- container -->
 
         <!-- script to allow alert button to change tabs -->
-        <script> function avoidSpoilers() { $('#mytabs a[href="#about"]').tab('show') } </script>
+        <script>
+function avoidSpoilers() {
+    $('#mytabs a[href="#about"]').tab('show')
+}
+        </script>
+
+        <!-- script to open modal -->
+        <script>
+function formSubmit() {
+    $('#form-modal').modal();
+    //cheat and make it look like the form submitted
+    document.getElementById("survey-form").reset();
+}
+        </script>
 
         <% include ../partials/scripts %>
     </body>
