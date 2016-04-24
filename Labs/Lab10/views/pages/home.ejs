@@ -7,85 +7,87 @@
 -->
 <html lang="en">
 
-<head>
-    <% include ../partials/head %>
-</head>
+    <head>
+        <% include ../partials/head %>
+    </head>
 
-<body>
-    <div class="container">
-        <div class="jumbotron">
-            <h1>GameWiki</h1>
-            <p>The wikia ripoff site for Game.</p>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-3 show-border">LOGO</div>
-            <div class="col-xs-12 col-sm-6 col-md-3 show-border">NAV</div>
-            <div class="col-xs-12 col-sm-6 col-md-3 show-border">SEARCH</div>
-        </div>
-        <div class="row">
-            <!-- tabs -->
-            <ul class="nav nav-tabs" role="tablist" id="mytabs">
-                <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
-                <li role="presentation" class="dropdown">
-                    <a id="characters-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Characters
-                        <span class="caret"></span>
-                    </a>
-                        <ul class="dropdown-menu" aria-labelledby="characters-label">
-                            <li><a href="#main" data-toggle="tab">Main Character</a></li>
-                            <li><a href="#one" data-toggle="tab">Supporting Character 1</a></li>
-                            <li><a href="#two" data-toggle="tab">Supporting Character 2</a></li>
-                            <li><a href="#three" data-toggle="tab">Supporting Character 3</a></li>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>GameWiki</h1>
+                <p>The wikia ripoff site for Game.</p>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 show-border">
+                    <img src="" alt="GameWiki Logo"/>
+                </div>
+                <div class="col-xs-12 col-sm-10 show-border">
+                    <div class="row">
+                        <!-- tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="mytabs">
+                            <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+                            <li role="presentation" class="dropdown">
+                                <a id="characters-dropdown" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Characters
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="characters-label">
+                                    <li><a href="#main" data-toggle="tab">Main Character</a></li>
+                                    <li><a href="#one" data-toggle="tab">Supporting Character 1</a></li>
+                                    <li><a href="#two" data-toggle="tab">Supporting Character 2</a></li>
+                                    <li><a href="#three" data-toggle="tab">Supporting Character 3</a></li>
+                                </ul>
+                            </li>
+                            <li role="presentation"><a href="#plot" aria-controls="plot" role="tab" data-toggle="tab">Plot</a></li>
                         </ul>
-                </li>
-                <li role="presentation"><a href="#plot" aria-controls="plot" role="tab" data-toggle="tab">Plot</a></li>
-            </ul>
 
-            <!-- tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="about">
-                    <h2>Overview of Game</h2>
-                    <p>This is a basic description of Game.</p>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="main">
-                    <h2>Main Character</h2>
-                    <p>A detailed description of the main character</p>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="one">
-                    <h2>Supporting Character 1</h2>
-                    <p>A detailed descrption of supporting chracacter 1</p>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="two">
-                    <h2>Supporting Character 2</h2>
-                    <p>A detailed descrption of supporting chracacter 2</p>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="three">
-                    <h2>Supporting Character 3</h2>
-                    <p>A detailed descrption of supporting chracacter 3</p>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="plot">
-                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
-                        <h2>Spoiler Alert!</h2>
-                        <p>This page contains spoilers! If you would like to discover the story on your own you may want to turn back now.</p>
-                        <p>
-                            <button id="spoiler-leave-btn" type="button" class="btn btn-danger" onclick="avoidSpoilers()">Leave Now</a>
-                            <script>
+                        <!-- tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="about">
+                                <h2>Overview of Game</h2>
+                                <p>This is a basic description of Game.</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="main">
+                                <h2>Main Character</h2>
+                                <p>A detailed description of the main character</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="one">
+                                <h2>Supporting Character 1</h2>
+                                <p>A detailed descrption of supporting chracacter 1</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="two">
+                                <h2>Supporting Character 2</h2>
+                                <p>A detailed descrption of supporting chracacter 2</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="three">
+                                <h2>Supporting Character 3</h2>
+                                <p>A detailed descrption of supporting chracacter 3</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="plot">
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">x</button>
+                                    <h2>Spoiler Alert!</h2>
+                                    <p>This page contains spoilers! If you would like to discover the story on your own you may want to turn back now.</p>
+                                    <p>
+                                    <button id="spoiler-leave-btn" type="button" class="btn btn-danger" onclick="avoidSpoilers()">Leave Now</a>
+                                    <script>
 function avoidSpoilers() {
     $('#mytabs a[href="#about"]').tab('show')
 }
-                            </script>
-                            <button id="spoiler-dismiss-btn" type="button" class="btn" data-dismiss="alert">Dismiss</button>
-                        </p>
+                                    </script>
+                                    <button id="spoiler-dismiss-btn" type="button" class="btn" data-dismiss="alert">Dismiss</button>
+                                    </p>
+                                </div>
+                                <h2>Plot of Game</h2>
+                                <p>In here be spoilers!</p>
+                            </div>
+                        </div>
                     </div>
-                    <h2>Plot of Game</h2>
-                    <p>In here be spoilers!</p>
                 </div>
             </div>
-        </div>
-    </div> <!-- container -->
+        </div> <!-- container -->
 
-    <% include ../partials/scripts %>
-</body>
+        <% include ../partials/scripts %>
+    </body>
 
 </html>
