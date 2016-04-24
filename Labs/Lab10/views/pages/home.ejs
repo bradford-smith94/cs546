@@ -19,8 +19,11 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-2 show-border">
-                    <img src="" alt="GameWiki Logo"/>
-                </div>
+                    <img src="http://vignette1.wikia.nocookie.net/wowwiki/images/1/17/Wikia_Logo.svg/revision/latest?cb=20120430230929" class="img-responsive" alt="GameWiki Logo"/>
+                    <div class="panel panel-info">
+                        <div class="panel-body"><p>Minor site info.</p></div>
+                    </div>
+                </div> <!-- left column -->
                 <div class="col-xs-12 col-sm-10 show-border">
                     <div class="row">
                         <!-- tabs -->
@@ -44,24 +47,34 @@
                         <!-- tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="about">
-                                <h2>Overview of Game</h2>
-                                <p>This is a basic description of Game.</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Overview of Game</h2></div>
+                                <div class="panel-body"><p>This is a basic description of Game.</p></div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="main">
-                                <h2>Main Character</h2>
-                                <p>A detailed description of the main character</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Main Character</h2></div>
+                                    <div class="panel-body"><p>A detailed description of the main character</p></div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="one">
-                                <h2>Supporting Character 1</h2>
-                                <p>A detailed descrption of supporting chracacter 1</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Supporting Character 1</h2></div>
+                                    <div class="panel-body"><p>A detailed descrption of supporting chracacter 1</p></div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="two">
-                                <h2>Supporting Character 2</h2>
-                                <p>A detailed descrption of supporting chracacter 2</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Supporting Character 2</h2></div>
+                                    <div class="panel-body"><p>A detailed descrption of supporting chracacter 2</p></div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="three">
-                                <h2>Supporting Character 3</h2>
-                                <p>A detailed descrption of supporting chracacter 3</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Supporting Character 3</h2></div>
+                                    <div class="panel-body"><p>A detailed descrption of supporting chracacter 3</p></div>
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="plot">
                                 <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -69,23 +82,43 @@
                                     <h2>Spoiler Alert!</h2>
                                     <p>This page contains spoilers! If you would like to discover the story on your own you may want to turn back now.</p>
                                     <p>
-                                    <button id="spoiler-leave-btn" type="button" class="btn btn-danger" onclick="avoidSpoilers()">Leave Now</a>
-                                    <script>
-function avoidSpoilers() {
-    $('#mytabs a[href="#about"]').tab('show')
-}
-                                    </script>
-                                    <button id="spoiler-dismiss-btn" type="button" class="btn" data-dismiss="alert">Dismiss</button>
+                                        <button id="spoiler-leave-btn" type="button" class="btn btn-danger" onclick="avoidSpoilers()">Leave Now</button>
+                                        <button id="spoiler-dismiss-btn" type="button" class="btn" data-dismiss="alert">Dismiss</button>
                                     </p>
                                 </div>
-                                <h2>Plot of Game</h2>
-                                <p>In here be spoilers!</p>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading"><h2>Plot of Game</h2></div>
+                                    <div class="panel-body"><p>In here be spoilers!</p></div>
+                                </div>
                             </div>
                         </div>
+                    </div> <!-- tabs row -->
+                </div> <!-- right column -->
+            </div> <!-- row -->
+            <div class="row">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h2>Survey</h2></div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="survey-email" class="col-xs-2 control-label">Email:</label>
+                                <div class="col-xs-10">
+                                    <input type="email" class="form-control" id="survey-email" placeholder="you@somewhere.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-offset-2">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
+            </div> <!-- row -->
         </div> <!-- container -->
+
+        <!-- script to allow alert button to change tabs -->
+        <script> function avoidSpoilers() { $('#mytabs a[href="#about"]').tab('show') } </script>
 
         <% include ../partials/scripts %>
     </body>
