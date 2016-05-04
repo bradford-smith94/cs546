@@ -1,6 +1,12 @@
+/* Bradford Smith (bsmith8)
+ * CS 546 Assignment 4 startup.js
+ * 05/03/2016
+ * "I pledge my honor that I have abided by the Stevens Honor System."
+ */
+
 var MongoClient = require('mongodb').MongoClient,
     settings = require('./config.js'),
-    Guid = require('Guid');
+    Guid = require('guid');
 
 var fullMongoUrl = settings.mongoConfig.serverUrl + settings.mongoConfig.database;
 
@@ -33,5 +39,5 @@ function runSetup() {
         });
 }
 
-// By exporting a function, we can run 
+// By exporting a function, we can run
 var exports = module.exports = runSetup;

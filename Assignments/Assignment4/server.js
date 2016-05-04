@@ -16,6 +16,15 @@ app.use(bodyParser.json()); // for parsing application/json
 
 // If you'll notice, there's not a single database call in the server file!
 
+app.get("/", function(request, response) {
+    // render the main page
+    // Get all the movies
+    movieData.getAllMovies().then(function(movieList) {
+        response.json(movieList);
+    });
+});
+
+// TODO: delete route
 // Get the best movies
 app.get("/api/movies/best", function(request, response) {
     movieData.getPopularMovies().then(function(popularMovies){
@@ -23,6 +32,7 @@ app.get("/api/movies/best", function(request, response) {
     });
 });
 
+// TODO: delete route
 // Get a single movie
 app.get("/api/movies/:id", function(request, response) {
     movieData.getMovie(request.params.id).then(function(movie) {
@@ -32,13 +42,7 @@ app.get("/api/movies/:id", function(request, response) {
     });
 });
 
-// Get all the movies
-app.get("/api/movies", function(request, response) {
-    movieData.getAllMovies().then(function(movieList) {
-        response.json(movieList);
-    });
-});
-
+// TODO: may need to edit response
 // Create a movie
 app.post("/api/movies", function(request, response) {
     movieData.createMovie(request.body.title, request.body.rating).then(function(movie) {
@@ -48,6 +52,7 @@ app.post("/api/movies", function(request, response) {
     });
 });
 
+// TODO: may need to edit response
 // Update a movie
 app.put("/api/movies/:id", function(request, response) {
     movieData.updateMovie(request.params.id, request.body.title, request.body.rating).then(function(movie) {
@@ -57,6 +62,7 @@ app.put("/api/movies/:id", function(request, response) {
     });
 });
 
+// TODO: may need to edit response
 app.delete("/api/movies/:id", function(request, response) {
     movieData.deleteMovie(request.params.id).then(function(status) {
         response.json({success: status});
