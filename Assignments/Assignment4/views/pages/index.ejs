@@ -19,15 +19,22 @@
         </header>
         <main class="row">
             <h2>Movies</h2>
-            <p>In here are the movies</p>
             <!-- TODO: hook up links -->
-            <a href="#">All Movies</a>
-            <a href="#">Popular Movies</a>
+            <a href="#" id="get-all-movies">All Movies</a>
+            <a href="#" id="get-pop-movies">Popular Movies</a>
+            <p>In here are the movies</p>
         </main>
         <footer>
             <h2>Add a Movie</h2>
-            <form>
-                <!-- TODO: -->
+            <p>Use this form to add a movie.</p>
+            <form id="add-movie-form">
+                <label for="add-movie-title">Title:
+                    <input type="text" name="title" id="add-movie-title" required="true"><br>
+                </label>
+                <label for="add-movie-rating">Rating:
+                    <input type="number" name="rating" id="add-movie-rating" min="1" max="5" required="true"><br>
+                </label>
+                <input type="submit" value="Add Movie">
             </form>
         </footer>
     </div>

@@ -17,6 +17,8 @@ app.use(bodyParser.json()); // for parsing application/json
 // setup to use ejs
 app.set('view engine', 'ejs');
 
+app.use('/assets', express.static('static'));
+
 // If you'll notice, there's not a single database call in the server file!
 
 app.get("/", function(request, response) {
