@@ -19,15 +19,14 @@
         </header>
         <main class="row">
             <h2>Movies</h2>
-            <!-- TODO: hook up links -->
             <a href="#all" id="get-all-movies">All Movies</a>
             <a href="#pop" id="get-pop-movies">Popular Movies</a>
             <p>In here are the movies</p>
             <section class="movies">
                 <% movies.forEach(function (m) { %>
                 <section class="movie-listing" id="listing_<%- m._id %>">
-                    <h3><%- m.title %></h3>
-                    <p>Rating: <%- m.rating %></p>
+                    <h3 id="title_<%- m._id %>"><%- m.title %></h3>
+                    <p id="rating_<%- m._id %>">Rating: <%- m.rating %></p>
                     <button type="button" class="increment" id="inc_<%- m._id %>">Increase Rating</button>
                     <button type="button" class="decrement" id="dec_<%- m._id %>">Decrease Rating</button>
                     <button type="button" class="delete" id="del_<%- m._id %>">Delete</button>
@@ -43,7 +42,7 @@
                     <input type="text" name="title" id="add-movie-title" required="true"><br>
                 </label>
                 <label for="add-movie-rating">Rating:
-                    <input type="number" name="rating" id="add-movie-rating" min="1" max="5" step=".1" required="true"><br>
+                    <input type="number" name="rating" id="add-movie-rating" min="0" max="5" step=".1" required="true"><br>
                 </label>
                 <input type="submit" value="Add Movie">
             </form>

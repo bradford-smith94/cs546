@@ -17,10 +17,12 @@
 
         var h = document.createElement("h3");
         h.appendChild(document.createTextNode(m.title));
+        h.setAttribute("id", "title_" + m._id);
         sec.appendChild(h);
 
         var par = document.createElement("p");
         par.appendChild(document.createTextNode("Rating: " + m.rating));
+        par.setAttribute("id", "rating_" + m._id);
         sec.appendChild(par);
 
         var inc = document.createElement("button");
@@ -90,14 +92,52 @@
         var btnClass = $(this).attr("class");
         var btnId = $(this).attr("id");
         var movId = btnId.substring(btnId.indexOf("_") + 1);
+        var movTitle = $("#title_" + movId).text();
+        var movRating = parseFloat($("#rating_" + movId).text().replace(/[^0-9\.]/g, ''));
 
         if (btnClass === "increment") {
             //it's an increment button
-            //TODO:
+            if (movRating < 5) {
+                var newRating = (movRating + 0.1).toFixed(1);
+
+                var requestConfig = {
+                    method: "PUT",
+                    url: "/api/movies/" + movId,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        title: movTitle,
+                        rating: parseFloat(newRating)
+                    })
+                };
+
+                //update rating in database
+                $.ajax(requestConfig).then(function(responseMessage) {
+                    //then update rating text
+                    $("#rating_" + movId).text("Rating: " + newRating);
+                });
+            }
         }
         else if (btnClass === "decrement") {
             //it's a decrement button
-            //TODO:
+            if (movRating > 0) {
+                var newRating = (movRating - 0.1).toFixed(1);
+
+                var requestConfig = {
+                    method: "PUT",
+                    url: "/api/movies/" + movId,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        title: movTitle,
+                        rating: parseFloat(newRating)
+                    })
+                };
+
+                //update rating in database
+                $.ajax(requestConfig).then(function(responseMessage) {
+                    //then update rating text
+                    $("#rating_" + movId).text("Rating: " + newRating);
+                });
+            }
         }
         else if (btnClass === "delete") {
             //it's a delete button
@@ -134,7 +174,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({
                     title: newTitle,
-                    rating: newRating
+                    rating: parseFloat(newRating)
                 })
             };
 
