@@ -29,7 +29,13 @@ app.get("/", function(request, response) {
     });
 });
 
-// TODO: delete route
+// Get all the movies
+app.get("/api/movies/all", function(request, response) {
+    movieData.getAllMovies().then(function(movieList) {
+        response.json(movieList);
+    });
+});
+
 // Get the best movies
 app.get("/api/movies/best", function(request, response) {
     movieData.getPopularMovies().then(function(popularMovies){
@@ -37,7 +43,6 @@ app.get("/api/movies/best", function(request, response) {
     });
 });
 
-// TODO: delete route
 // Get a single movie
 app.get("/api/movies/:id", function(request, response) {
     movieData.getMovie(request.params.id).then(function(movie) {
@@ -47,7 +52,6 @@ app.get("/api/movies/:id", function(request, response) {
     });
 });
 
-// TODO: may need to edit response
 // Create a movie
 app.post("/api/movies", function(request, response) {
     movieData.createMovie(request.body.title, request.body.rating).then(function(movie) {
@@ -57,7 +61,6 @@ app.post("/api/movies", function(request, response) {
     });
 });
 
-// TODO: may need to edit response
 // Update a movie
 app.put("/api/movies/:id", function(request, response) {
     movieData.updateMovie(request.params.id, request.body.title, request.body.rating).then(function(movie) {
@@ -67,7 +70,7 @@ app.put("/api/movies/:id", function(request, response) {
     });
 });
 
-// TODO: may need to edit response
+// Delete a movie
 app.delete("/api/movies/:id", function(request, response) {
     movieData.deleteMovie(request.params.id).then(function(status) {
         response.json({success: status});

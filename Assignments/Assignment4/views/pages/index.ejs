@@ -23,15 +23,17 @@
             <a href="#all" id="get-all-movies">All Movies</a>
             <a href="#pop" id="get-pop-movies">Popular Movies</a>
             <p>In here are the movies</p>
-            <% movies.forEach(function (m) { %>
-            <section class="movie-listing" id="listing_<%- m._id %>">
-                <h3><%- m.title %></h3>
-                <p>Rating: <%- m.rating %></p>
-                <button type="button" class="increment" id="inc_<%- m._id %>">Increase Rating</button>
-                <button type="button" class="decrement" id="dec_<%- m._id %>">Decrease Rating</button>
-                <button type="button" class="delete" id="del_<%- m._id %>">Delete</button>
+            <section class="movies">
+                <% movies.forEach(function (m) { %>
+                <section class="movie-listing" id="listing_<%- m._id %>">
+                    <h3><%- m.title %></h3>
+                    <p>Rating: <%- m.rating %></p>
+                    <button type="button" class="increment" id="inc_<%- m._id %>">Increase Rating</button>
+                    <button type="button" class="decrement" id="dec_<%- m._id %>">Decrease Rating</button>
+                    <button type="button" class="delete" id="del_<%- m._id %>">Delete</button>
+                </section>
+                <% }); %>
             </section>
-            <% }); %>
         </main>
         <footer>
             <h2>Add a Movie</h2>
