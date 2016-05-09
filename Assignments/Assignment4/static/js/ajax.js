@@ -41,7 +41,21 @@
         }
         else if (btnClass === "delete") {
             //it's a delete button
-            //TODO:
+
+            //if we have the movie id
+            if (movId) {
+                var requestConfig = {
+                    method: "DELETE",
+                    url: "/api/movies/" + movId,
+                    contentType: "application/json"
+                };
+
+                //delete it in the database
+                $.ajax(requestConfig).then(function(reponseMessage) {
+                    //then remove it from the page
+                    $(".movie-listing").remove("#listing_" + movId);
+                });
+            }
         }
     });
 
