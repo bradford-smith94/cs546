@@ -1,6 +1,6 @@
 /* Bradford Smith (bsmith8)
  * CS 546 Assignment 4 server.js
- * 05/03/2016
+ * 05/08/2016
  * "I pledge my honor that I have abided by the Stevens Honor System."
  */
 
@@ -14,13 +14,16 @@ var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
+// setup to use ejs
+app.set('view engine', 'ejs');
+
 // If you'll notice, there's not a single database call in the server file!
 
 app.get("/", function(request, response) {
-    // render the main page
     // Get all the movies
     movieData.getAllMovies().then(function(movieList) {
-        response.json(movieList);
+        // render the main page
+        response.render('pages/index.ejs', { movies: movieList });
     });
 });
 
