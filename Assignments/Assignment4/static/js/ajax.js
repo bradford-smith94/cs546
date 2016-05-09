@@ -9,6 +9,44 @@
         movieTitle = $("#add-movie-title"),
         movieRating = $("#add-movie-rating");
 
+    //function to add a new movie element to the page
+    function appendNewMovie(m) {
+        var sec = document.createElement("section");
+        sec.setAttribute("class", "movie-listing");
+        sec.setAttribute("id", "listing_" + m._id);
+
+        var h = document.createElement("h3");
+        h.appendChild(document.createTextNode(m.title));
+        sec.appendChild(h);
+
+        var par = document.createElement("p");
+        par.appendChild(document.createTextNode("Rating: " + m.rating));
+        sec.appendChild(par);
+
+        var inc = document.createElement("button");
+        inc.setAttribute("type", "button");
+        inc.setAttribute("class", "increment");
+        inc.setAttribute("id", "inc_" + m._id);
+        inc.appendChild(document.createTextNode("Increase Rating"));
+        sec.appendChild(inc);
+
+        var dec = document.createElement("button");
+        dec.setAttribute("type", "button");
+        dec.setAttribute("class", "decrement");
+        dec.setAttribute("id", "dec_" + m._id);
+        dec.appendChild(document.createTextNode("Decrease Rating"));
+        sec.appendChild(dec);
+
+        var del = document.createElement("button");
+        del.setAttribute("type", "button");
+        del.setAttribute("class", "delete");
+        del.setAttribute("id", "del_" + m._id);
+        del.appendChild(document.createTextNode("Delete"));
+        sec.appendChild(del);
+
+        $(".movies").append(sec);
+    };
+
     //handler for all link clicks
     $("a").click(function(event) {
         event.preventDefault();
@@ -26,46 +64,24 @@
             $.ajax(requestConfig).then(function(movies) {
                 $(".movies").empty();
                 movies.forEach(function (m) {
-                    var sec = document.createElement("section");
-                    sec.setAttribute("class", "movie-listing");
-                    sec.setAttribute("id", "listing_" + m._id);
-
-                    var h = document.createElement("h3");
-                    h.appendChild(document.createTextNode(m.title));
-                    sec.appendChild(h);
-
-                    var par = document.createElement("p");
-                    par.appendChild(document.createTextNode("Rating: " + m.rating));
-                    sec.appendChild(par);
-
-                    var inc = document.createElement("button");
-                    inc.setAttribute("type", "button");
-                    inc.setAttribute("class", "increment");
-                    inc.setAttribute("id", "inc_" + m._id);
-                    inc.appendChild(document.createTextNode("Increase Rating"));
-                    sec.appendChild(inc);
-
-                    var dec = document.createElement("button");
-                    dec.setAttribute("type", "button");
-                    dec.setAttribute("class", "decrement");
-                    dec.setAttribute("id", "dec_" + m._id);
-                    dec.appendChild(document.createTextNode("Decrease Rating"));
-                    sec.appendChild(dec);
-
-                    var del = document.createElement("button");
-                    del.setAttribute("type", "button");
-                    del.setAttribute("class", "delete");
-                    del.setAttribute("id", "del_" + m._id);
-                    del.appendChild(document.createTextNode("Delete"));
-                    sec.appendChild(del);
-
-                    $(".movies").append(sec);
+                    appendNewMovie(m);
                 });
             });
         }
         else if (linkHref === "#pop") {
             //reload most popular movies
-            //TODO:
+            var requestConfig = {
+                method: "GET",
+                url: "/api/movies/best",
+                contentType: "application/json"
+            };
+
+            $.ajax(requestConfig).then(function(movies) {
+                $(".movies").empty();
+                movies.forEach(function (m) {
+                    appendNewMovie(m);
+                });
+            });
         }
     });
 
@@ -122,9 +138,13 @@
                 })
             };
 
+            //create a new movie
             $.ajax(requestConfig).then(function(responseMessage) {
-                //trigger a page reload
-                window.location.reload();
+                //then reset the form
+                $("#add-movie-form")[0].reset();
+
+                //and append a new movie to the page
+                appendNewMovie(responseMessage);
             });
         }
     });
