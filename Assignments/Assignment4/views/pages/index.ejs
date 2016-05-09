@@ -2,7 +2,7 @@
 <!--
     Bradford Smith (bsmith8)
     CS 546 Assignment 4 index.ejs
-    05/08/2016
+    05/09/2016
     "I pledge my honor that I have abided by the Stevens Honor System."
 -->
 <html lang="en">
@@ -20,15 +20,16 @@
         <main class="row">
             <h2>Movies</h2>
             <!-- TODO: hook up links -->
-            <a href="#" id="get-all-movies">All Movies</a>
-            <a href="#" id="get-pop-movies">Popular Movies</a>
+            <a href="#all" id="get-all-movies">All Movies</a>
+            <a href="#pop" id="get-pop-movies">Popular Movies</a>
             <p>In here are the movies</p>
             <% movies.forEach(function (m) { %>
-            <section class="movie-listing">
+            <section class="movie-listing" id="listing_<%- m._id %>">
                 <h3><%- m.title %></h3>
-                <button type="button">Increase Rating</button>
                 <p>Rating: <%- m.rating %></p>
-                <button type="button">Decrease Rating</button>
+                <button type="button" class="increment" id="inc_<%- m._id %>">Increase Rating</button>
+                <button type="button" class="decrement" id="dec_<%- m._id %>">Decrease Rating</button>
+                <button type="button" class="delete" id="del_<%- m._id %>">Delete</button>
             </section>
             <% }); %>
         </main>
