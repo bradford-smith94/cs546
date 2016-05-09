@@ -29,8 +29,8 @@
             };
 
             $.ajax(requestConfig).then(function(responseMessage) {
-                console.log("Things happened");
-                //TODO: something with responseMessage
+                //trigger a page reload
+                window.location.reload();
             });
         }
     });

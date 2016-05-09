@@ -23,6 +23,14 @@
             <a href="#" id="get-all-movies">All Movies</a>
             <a href="#" id="get-pop-movies">Popular Movies</a>
             <p>In here are the movies</p>
+            <% movies.forEach(function (m) { %>
+            <section class="movie-listing">
+                <h3><%- m.title %></h3>
+                <button type="button">Increase Rating</button>
+                <p>Rating: <%- m.rating %></p>
+                <button type="button">Decrease Rating</button>
+            </section>
+            <% }); %>
         </main>
         <footer>
             <h2>Add a Movie</h2>
@@ -32,7 +40,7 @@
                     <input type="text" name="title" id="add-movie-title" required="true"><br>
                 </label>
                 <label for="add-movie-rating">Rating:
-                    <input type="number" name="rating" id="add-movie-rating" min="1" max="5" required="true"><br>
+                    <input type="number" name="rating" id="add-movie-rating" min="1" max="5" step=".1" required="true"><br>
                 </label>
                 <input type="submit" value="Add Movie">
             </form>
